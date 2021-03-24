@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import c.m.koskosan.R
+import c.m.koskosan.ui.detail.DetailActivity
 import c.m.koskosan.util.Constants
 import c.m.koskosan.util.gone
 import c.m.koskosan.util.visible
@@ -126,8 +127,8 @@ class MapsFragment : Fragment() {
                                 addMarker(marker).tag = location.uid
 
                                 // enable marker click
-                                setOnMarkerClickListener { marker ->
-                                    marker.showInfoWindow()
+                                setOnMarkerClickListener { markerOnClick ->
+                                    markerOnClick.showInfoWindow()
                                     false
                                 }
 
@@ -135,6 +136,14 @@ class MapsFragment : Fragment() {
                                 setOnInfoWindowClickListener { infoWindow ->
                                     infoWindow.tag
                                     infoWindow.title
+
+                                    val detailActivityIntent = Intent(
+                                        requireActivity(),
+                                        DetailActivity::class.java
+                                    ).apply {
+                                        putExtra(Constants.UID, infoWindow.tag.toString())
+                                    }
+                                    startActivity(detailActivityIntent)
                                 }
                             }
                         }
