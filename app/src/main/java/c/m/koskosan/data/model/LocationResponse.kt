@@ -13,6 +13,7 @@ data class LocationResponse(
     var coordinate: GeoPoint? = null,
     var photo: List<String>? = null,
     var type: String? = null,
+    var googlePlace: String? = null,
 ) {
     @Exclude
     fun toMap(): Map<String, Any?> = mapOf(
@@ -23,5 +24,6 @@ data class LocationResponse(
         "coordinate" to coordinate,
         "photo" to photo,
         "type" to type,
+        "googlePlace" to googlePlace,
     )
 }

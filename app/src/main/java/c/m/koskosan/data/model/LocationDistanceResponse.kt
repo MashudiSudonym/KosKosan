@@ -10,5 +10,6 @@ data class LocationDistanceResponse(
     var coordinate: GeoPoint? = null,
     var photo: List<String>? = null,
     var type: String? = null,
+    var googlePlace: String? = null,
     var distance: Double? = 0.0,
 )
