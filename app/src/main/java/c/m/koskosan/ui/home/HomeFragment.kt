@@ -14,21 +14,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import c.m.koskosan.R
 import c.m.koskosan.data.model.LocationDistanceResponse
 import c.m.koskosan.databinding.FragmentHomeBinding
+import c.m.koskosan.ui.detail.DetailActivity
 import c.m.koskosan.util.Constants.Companion.PERMISSION_REQUEST_LOCATION
+import c.m.koskosan.util.Constants.Companion.UID
 import c.m.koskosan.util.gone
 import c.m.koskosan.util.invisible
-import c.m.koskosan.util.snackBarBasicShort
 import c.m.koskosan.util.visible
 import c.m.koskosan.vo.ResponseState
 import com.google.android.gms.location.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -43,7 +42,6 @@ class HomeFragment : Fragment() {
     private var deviceLocationLatitude: Double? = 0.0
     private var deviceLocationLongitude: Double? = 0.0
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private var locationCoordinate: Location? = null
     private var deviceCoordinate: Location? = null
     private var locationList: ArrayList<LocationDistanceResponse> = arrayListOf()
 
@@ -72,7 +70,7 @@ class HomeFragment : Fragment() {
         }
 
         // initialize get data from database
-        initializeGetLocationData(view)
+        initializeGetLocationData()
 
         // swipe to refresh function
         binding.homeSwipeRefreshLayout.setOnRefreshListener {
@@ -80,14 +78,14 @@ class HomeFragment : Fragment() {
             // get device coordinate
             getLastLocation()
             // get data
-            initializeGetLocationData(view)
+            initializeGetLocationData()
         }
 
         return view
     }
 
     // initialize get data from database
-    private fun initializeGetLocationData(view: CoordinatorLayout) {
+    private fun initializeGetLocationData() {
         homeViewModel.getLocations().observe(viewLifecycleOwner, { response ->
             if (response != null) when (response) {
                 is ResponseState.Error -> showErrorStateView() // error state
@@ -109,7 +107,7 @@ class HomeFragment : Fragment() {
                     }
 
                     response.data?.forEach { result ->
-                        locationCoordinate = Location("targetLocation").apply {
+                        val locationCoordinate = Location("targetLocation").apply {
                             latitude = result.coordinate?.latitude as Double
                             longitude = result.coordinate?.longitude as Double
                         }
@@ -126,17 +124,21 @@ class HomeFragment : Fragment() {
                             result.coordinate,
                             result.photo,
                             result.type,
+                            result.googlePlace,
                             distance
                         )
 
-                        Timber.d("$distance, $locationCoordinate, $deviceCoordinate")
                         locationList.add(locationWithDistance)
-                        locationList.sortedWith(compareBy { it.distance })
+                        locationList.sortBy { it.distance }
                     }
 
                     // add data to recycler view adapter
                     homeAdapter = HomeAdapter { locationResponse ->
-                        view.snackBarBasicShort(locationResponse.photo?.first().toString())
+                        val detailActivityIntent =
+                            Intent(requireActivity(), DetailActivity::class.java).apply {
+                                putExtra(UID, locationResponse.uid)
+                            }
+                        startActivity(detailActivityIntent)
                     }
                     homeAdapter.submitList(locationList)
                     binding.rvLocation.adapter = homeAdapter
