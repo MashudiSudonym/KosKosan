@@ -48,4 +48,17 @@
     <string name="location_distance">Jarak Lokasi</string>
     <string name="km">KM</string>
     <string name="kos">Kos</string>
+    <string name="strip">-</string>
+    <string name="alert_location_permission_granted">Ijin Akses Lokasi Diterima!</string>
+    <string name="alert_location_permission_denied">Ijin Akses Lokasi Ditolak!</string>
+    <string name="alert_location_access_required">Ijin Akses Lokasi DIbutuhkan</string>
+    <string name="alert_location_permission_not_available">Ijin Akses Lokasi Tidak Tersedia</string>
+    <string name="send_message">Kirim Pesan</string>
+    <string name="share">Bagikan</string>
+    <string name="order">Pesan</string>
+    <string name="detail">Detail Lokasi</string>
+    <string name="share_content_base">"Hei, lokasi ini dibagikan dari aplikasi KosKosan : "</string>
+    <string name="type_of">"Tipe kamar kos : "</string>
+    <string name="woman">Wanita</string>
+    <string name="man">Pria</string>
 </resources>

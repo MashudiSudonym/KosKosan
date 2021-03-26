@@ -1,11 +1,8 @@
 package c.m.koskosan.data.repository
 
-import android.location.Location
-import android.location.LocationManager
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import c.m.koskosan.data.model.LocationDistanceResponse
 import c.m.koskosan.data.model.LocationResponse
 import c.m.koskosan.data.model.UserResponse
 import c.m.koskosan.vo.ResponseState
@@ -175,5 +172,34 @@ class FirebaseRepository {
         }
 
         return locations
+    }
+
+    // get location by uid
+    fun readLocationByUid(uid: String): LiveData<ResponseState<LocationResponse>> {
+        val location: MutableLiveData<ResponseState<LocationResponse>> = MutableLiveData()
+
+        // Loading state
+        location.value = ResponseState.Loading(null)
+
+        locationCollection.whereEqualTo("uid", uid).get()
+            .addOnSuccessListener { snapshot ->
+                val locationSnapshot = snapshot?.toObjects(LocationResponse::class.java)
+
+                if (locationSnapshot != null) {
+                    locationSnapshot.forEach { data ->
+                        // success state
+                        location.value = ResponseState.Success(data)
+                    }
+                } else {
+                    // error state
+                    location.value = ResponseState.Error("No data", null)
+                }
+            }
+            .addOnFailureListener { exception ->
+                // error state
+                location.value = ResponseState.Error(exception.localizedMessage, null)
+            }
+
+        return location
     }
 }

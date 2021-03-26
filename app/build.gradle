@@ -78,8 +78,8 @@ dependencies {
     // Loading Animation
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
     // navigation
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
     // lifecycle
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0'
@@ -97,6 +97,8 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.4.0'
     // Circle image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    // slider image
+    implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
     // Form Validator
     implementation 'com.github.rizmaulana:SheenValidator:0.2.3'
     // Log
@@ -118,7 +120,7 @@ dependencies {
     // Koin for Unit tests
     testImplementation "org.koin:koin-test:$koin_version"
     // test
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:3.4.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

@@ -10,7 +10,7 @@
     <string name="defailt_code_country" translatable="false">ID</string>
     <string name="alert_camera_permission_denied">Camera Permission Denied!</string>
     <string name="alert_camera_permission_availabel">Camera Permission Available</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="no">No</string>
     <string name="cancel">Cancel</string>
     <string name="alert_camera_access_required">Camera Access Required</string>
@@ -53,4 +53,12 @@
     <string name="alert_location_permission_denied">Location Permission Denied!</string>
     <string name="alert_location_access_required">Location Access Required</string>
     <string name="alert_location_permission_not_available">Location Permission not Available</string>
+    <string name="send_message">Send Message</string>
+    <string name="share">Share</string>
+    <string name="order">Order</string>
+    <string name="detail">Location Detail</string>
+    <string name="share_content_base">\"Hei, Share this location from KosKosan App : \"</string>
+    <string name="type_of">"Type of : "</string>
+    <string name="woman">Woman</string>
+    <string name="man">Man</string>
 </resources>

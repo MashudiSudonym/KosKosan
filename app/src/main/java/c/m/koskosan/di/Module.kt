@@ -2,6 +2,7 @@ package c.m.koskosan.di
 
 import c.m.koskosan.data.repository.AuthRepository
 import c.m.koskosan.data.repository.FirebaseRepository
+import c.m.koskosan.ui.detail.DetailViewModel
 import c.m.koskosan.ui.form.add.user.profile.AddUserProfileViewModel
 import c.m.koskosan.ui.form.update.user.profile.UpdateUserProfileViewModel
 import c.m.koskosan.ui.home.HomeViewModel
@@ -21,6 +22,7 @@ val viewModelModule: Module = module {
     viewModel { UpdateUserProfileViewModel(get(), get()) }
     viewModel { HomeViewModel(get()) }
     viewModel { MapsViewModel(get()) }
+    viewModel { DetailViewModel(get()) }
 }
 
 val repositoryModule: Module = module {

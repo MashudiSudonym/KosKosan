@@ -207,13 +207,13 @@ class MapsFragment : Fragment() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
         fusedLocationClient.requestLocationUpdates(
-            locationRequest, mLocationCallback,
+            locationRequest, locationCallback,
             Looper.myLooper()
         )
     }
 
     // callback location fuse
-    private val mLocationCallback = object : LocationCallback() {
+    private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             val lastLocation: Location = locationResult.lastLocation
             deviceLocationLatitude = lastLocation.latitude
