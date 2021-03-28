@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import c.m.koskosan.data.model.LocationResponse
+import c.m.koskosan.data.model.OrderResponse
 import c.m.koskosan.data.model.UserResponse
 import c.m.koskosan.vo.ResponseState
 import com.google.firebase.firestore.CollectionReference
@@ -25,6 +26,7 @@ class FirebaseRepository {
     private val firestore: FirebaseFirestore = Firebase.firestore
     private val userProfileCollection: CollectionReference = firestore.collection("users")
     private val locationCollection: CollectionReference = firestore.collection("locations")
+    private val orderCollection: CollectionReference = firestore.collection("orders")
 
     // Check user data from users collection firestore
     fun checkUserProfileData(uid: String): LiveData<Boolean> {
@@ -201,5 +203,27 @@ class FirebaseRepository {
             }
 
         return location
+    }
+
+    // get user order by uid
+    fun readOrderByUid(uid: String): LiveData<ResponseState<List<OrderResponse>>> {
+        val orders: MutableLiveData<ResponseState<List<OrderResponse>>> = MutableLiveData()
+
+        // show loading state
+        orders.value = ResponseState.Loading(null)
+
+        orderCollection.whereEqualTo("userUID", uid).get()
+            .addOnSuccessListener { snapshot ->
+                val orderSnapshot = snapshot?.toObjects(OrderResponse::class.java)
+
+                // success state
+                orders.value = ResponseState.Success(orderSnapshot)
+            }
+            .addOnFailureListener { exception ->
+                // error state
+                orders.value = ResponseState.Error(exception.localizedMessage, null)
+            }
+
+        return orders
     }
 }

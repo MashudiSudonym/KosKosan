@@ -89,63 +89,68 @@ class HomeFragment : Fragment() {
     // initialize get data from database
     private fun initializeGetLocationData() {
         homeViewModel.getLocations().observe(viewLifecycleOwner, { response ->
-            if (response != null) when (response) {
-                is ResponseState.Error -> showErrorStateView() // error state
-                is ResponseState.Loading -> {
-                    // clear list
-                    locationList.clear()
+            if (response != null) {
+                when (response) {
+                    is ResponseState.Error -> showErrorStateView() // error state
+                    is ResponseState.Loading -> {
+                        // clear list
+                        locationList.clear()
 
-                    // loading state
-                    showLoadingStateView()
-                }
-                is ResponseState.Success -> {
-                    // success state
-                    showSuccessStateView()
-
-                    // gps coordinate and calculate the distance
-                    deviceCoordinate = Location("deviceLocation").apply {
-                        latitude = deviceLocationLatitude as Double
-                        longitude = deviceLocationLongitude as Double
+                        // loading state
+                        showLoadingStateView()
                     }
+                    is ResponseState.Success -> {
+                        // success state
+                        showSuccessStateView()
 
-                    response.data?.forEach { result ->
-                        val locationCoordinate = Location("targetLocation").apply {
-                            latitude = result.coordinate?.latitude as Double
-                            longitude = result.coordinate?.longitude as Double
+                        // gps coordinate and calculate the distance
+                        deviceCoordinate = Location("deviceLocation").apply {
+                            latitude = deviceLocationLatitude as Double
+                            longitude = deviceLocationLongitude as Double
                         }
 
-                        val distance = BigDecimal(
-                            deviceCoordinate?.distanceTo(locationCoordinate)?.div(1000)
-                                ?.toDouble() as Double
-                        ).setScale(2, RoundingMode.HALF_EVEN).toDouble()
-                        val locationWithDistance = LocationDistanceResponse(
-                            result.uid,
-                            result.name,
-                            result.address,
-                            result.phone,
-                            result.coordinate,
-                            result.photo,
-                            result.type,
-                            result.googlePlace,
-                            distance
-                        )
-
-                        locationList.add(locationWithDistance)
-                        locationList.sortBy { it.distance }
-                    }
-
-                    // add data to recycler view adapter
-                    homeAdapter = HomeAdapter { locationResponse ->
-                        val detailActivityIntent =
-                            Intent(requireActivity(), DetailActivity::class.java).apply {
-                                putExtra(UID, locationResponse.uid)
+                        response.data?.forEach { result ->
+                            val locationCoordinate = Location("targetLocation").apply {
+                                latitude = result.coordinate?.latitude as Double
+                                longitude = result.coordinate?.longitude as Double
                             }
-                        startActivity(detailActivityIntent)
+
+                            val distance = BigDecimal(
+                                deviceCoordinate?.distanceTo(locationCoordinate)?.div(1000)
+                                    ?.toDouble() as Double
+                            ).setScale(2, RoundingMode.HALF_EVEN).toDouble()
+                            val locationWithDistance = LocationDistanceResponse(
+                                result.uid,
+                                result.name,
+                                result.address,
+                                result.phone,
+                                result.coordinate,
+                                result.photo,
+                                result.type,
+                                result.googlePlace,
+                                distance
+                            )
+
+                            locationList.add(locationWithDistance)
+                            locationList.sortBy { it.distance }
+                        }
+
+                        // add data to recycler view adapter
+                        homeAdapter = HomeAdapter { locationResponse ->
+                            val detailActivityIntent =
+                                Intent(requireActivity(), DetailActivity::class.java).apply {
+                                    putExtra(UID, locationResponse.uid)
+                                }
+                            startActivity(detailActivityIntent)
+                        }
+                        homeAdapter.submitList(locationList)
+                        binding.rvLocation.adapter = homeAdapter
+                        binding.rvLocation.setHasFixedSize(true)
                     }
-                    homeAdapter.submitList(locationList)
-                    binding.rvLocation.adapter = homeAdapter
-                    binding.rvLocation.setHasFixedSize(true)
                 }
+            } else {
+                // if empty data
+                showEmptyStateView()
             }
         })
     }
@@ -169,6 +174,14 @@ class HomeFragment : Fragment() {
         binding.homeLayout.invisible()
         binding.animLoading.visible()
         binding.animError.gone()
+    }
+
+    // handle empty data state of view
+    private fun showEmptyStateView() {
+        binding.homeLayout.invisible()
+        binding.animLoading.gone()
+        binding.animError.gone()
+        binding.animEmpty.visible()
     }
 
     // request last location

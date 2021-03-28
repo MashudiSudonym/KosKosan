@@ -61,4 +61,5 @@
     <string name="type_of">"Tipe kamar kos : "</string>
     <string name="woman">Wanita</string>
     <string name="man">Pria</string>
+    <string name="title_search">Cari</string>
 </resources>

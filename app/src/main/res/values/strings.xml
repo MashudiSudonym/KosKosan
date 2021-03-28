@@ -61,4 +61,7 @@
     <string name="type_of">"Type of : "</string>
     <string name="woman">Woman</string>
     <string name="man">Man</string>
+    <string name="title_search">Search</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

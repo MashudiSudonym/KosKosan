@@ -60,16 +60,21 @@ class ProfileFragment : Fragment() {
     // function for get user profile data and observing the state of data
     private fun initializeGetUserProfileData() {
         profileViewModel.getUserProfile().observe(viewLifecycleOwner, { response ->
-            if (response != null) when (response) {
-                is ResponseState.Error -> showErrorStateView() // show error state view
-                is ResponseState.Loading -> showLoadingStateView() // show loading state view
-                is ResponseState.Success -> {
-                    // show success load data state view
-                    showSuccessStateView()
+            if (response != null) {
+                when (response) {
+                    is ResponseState.Error -> showErrorStateView() // show error state view
+                    is ResponseState.Loading -> showLoadingStateView() // show loading state view
+                    is ResponseState.Success -> {
+                        // show success load data state view
+                        showSuccessStateView()
 
-                    // set response data to view
-                    initializeDataToView(response)
+                        // set response data to view
+                        initializeDataToView(response)
+                    }
                 }
+            } else {
+                // show empty data state view
+                showEmptyStateView()
             }
         })
     }
@@ -84,7 +89,7 @@ class ProfileFragment : Fragment() {
         binding.tvName.text = response.data?.name
         binding.tvEmail.text = response.data?.email
         binding.tvAddress.text = getString(R.string.address) + ": " + response.data?.address
-        binding.tvPhone.text = getString(R.string.phone) + ": " +response.data?.phoneNumber
+        binding.tvPhone.text = getString(R.string.phone) + ": " + response.data?.phoneNumber
     }
 
     // handle success state of view
@@ -108,6 +113,14 @@ class ProfileFragment : Fragment() {
         binding.animError.gone()
     }
 
+    // handle empty data state of view
+    private fun showEmptyStateView() {
+        binding.profileLayout.invisible()
+        binding.animLoading.gone()
+        binding.animError.gone()
+        binding.animEmpty.visible()
+    }
+
     // initialize option menu
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.profile_menu, menu)
@@ -117,7 +130,8 @@ class ProfileFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.edit_profile -> {
-                val intentUpdateUserProfileActivity = Intent(requireContext(), UpdateUserProfileActivity::class.java)
+                val intentUpdateUserProfileActivity =
+                    Intent(requireContext(), UpdateUserProfileActivity::class.java)
                 startActivity(intentUpdateUserProfileActivity)
                 true
             }

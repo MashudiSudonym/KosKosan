@@ -10,6 +10,7 @@ import c.m.koskosan.ui.main.MainViewModel
 import c.m.koskosan.ui.maps.MapsViewModel
 import c.m.koskosan.ui.profile.ProfileViewModel
 import c.m.koskosan.ui.splash.SplashscreenViewModel
+import c.m.koskosan.ui.transaction.TransactionViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -23,6 +24,7 @@ val viewModelModule: Module = module {
     viewModel { HomeViewModel(get()) }
     viewModel { MapsViewModel(get()) }
     viewModel { DetailViewModel(get()) }
+    viewModel { TransactionViewModel(get(), get()) }
 }
 
 val repositoryModule: Module = module {

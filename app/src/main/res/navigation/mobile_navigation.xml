@@ -6,11 +6,6 @@
     app:startDestination="@id/navigation_maps">
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="c.m.koskosan.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
-    <fragment
         android:id="@+id/navigation_maps"
         android:name="c.m.koskosan.ui.maps.MapsFragment"
         android:label="fragment_maps"
@@ -30,4 +25,9 @@
         android:name="c.m.koskosan.ui.transaction.TransactionFragment"
         android:label="fragment_transaction"
         tools:layout="@layout/fragment_transaction" />
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="c.m.koskosan.ui.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>
