@@ -60,21 +60,16 @@ class ProfileFragment : Fragment() {
     // function for get user profile data and observing the state of data
     private fun initializeGetUserProfileData() {
         profileViewModel.getUserProfile().observe(viewLifecycleOwner, { response ->
-            if (response != null) {
-                when (response) {
-                    is ResponseState.Error -> showErrorStateView() // show error state view
-                    is ResponseState.Loading -> showLoadingStateView() // show loading state view
-                    is ResponseState.Success -> {
-                        // show success load data state view
-                        showSuccessStateView()
+            if (response != null) when (response) {
+                is ResponseState.Error -> showErrorStateView() // show error state view
+                is ResponseState.Loading -> showLoadingStateView() // show loading state view
+                is ResponseState.Success -> {
+                    // show success load data state view
+                    showSuccessStateView()
 
-                        // set response data to view
-                        initializeDataToView(response)
-                    }
+                    // set response data to view
+                    initializeDataToView(response)
                 }
-            } else {
-                // show empty data state view
-                showEmptyStateView()
             }
         })
     }
@@ -111,14 +106,6 @@ class ProfileFragment : Fragment() {
         binding.profileLayout.invisible()
         binding.animLoading.visible()
         binding.animError.gone()
-    }
-
-    // handle empty data state of view
-    private fun showEmptyStateView() {
-        binding.profileLayout.invisible()
-        binding.animLoading.gone()
-        binding.animError.gone()
-        binding.animEmpty.visible()
     }
 
     // initialize option menu

@@ -47,20 +47,15 @@ class TransactionFragment : Fragment() {
     // initialize get transaction data
     private fun initializeGetTransactionData() {
         transactionViewModel.getUserOrderByUid().observe(viewLifecycleOwner, { response ->
-            if (response != null) {
-                when (response) {
-                    is ResponseState.Error -> showErrorStateView() // error state
-                    is ResponseState.Loading -> showLoadingStateView() // loading state
-                    is ResponseState.Success -> {
-                        // success state
-                        showSuccessStateView()
+            if (response != null) when (response) {
+                is ResponseState.Error -> showErrorStateView() // error state
+                is ResponseState.Loading -> showLoadingStateView() // loading state
+                is ResponseState.Success -> {
+                    // success state
+                    showSuccessStateView()
 
-                        // TODO: show data to recyclerview
-                    }
+                    // TODO: show data to recyclerview
                 }
-            } else {
-                // empty state
-                showEmptyStateView()
             }
         })
     }
@@ -84,14 +79,6 @@ class TransactionFragment : Fragment() {
         binding.transactionLayout.invisible()
         binding.animLoading.visible()
         binding.animError.gone()
-    }
-
-    // handle empty data state of view
-    private fun showEmptyStateView() {
-        binding.transactionLayout.invisible()
-        binding.animLoading.gone()
-        binding.animError.gone()
-        binding.animEmpty.visible()
     }
 
 }
