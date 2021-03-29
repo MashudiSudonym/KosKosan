@@ -13,6 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
-KosKosan/app/src/release/res/values/google_maps_api.xml
-KosKosan/app/src/debug/res/values/google_maps_api.xml
-KosKosan/app/google-services.json
+/src/release/res/values/google_maps_api.xml
+/src/debug/res/values/google_maps_api.xml
+google-services.json
