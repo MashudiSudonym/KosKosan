@@ -62,4 +62,11 @@
     <string name="woman">Wanita</string>
     <string name="man">Pria</string>
     <string name="title_search">Cari</string>
+    <string name="transaction_by">Transaksi dari</string>
+    <string name="transaction_from">Transaksi untuk</string>
+    <string name="transaction_status">Status Transaksi</string>
+    <string name="cancel_status">Dibatalkan</string>
+    <string name="accept_status">Disetujui</string>
+    <string name="survey_status">Survei ke Lokasi</string>
+    <string name="waiting_status">Menunggu respon pemilik kos</string>
 </resources>

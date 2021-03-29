@@ -10,6 +10,7 @@ import c.m.koskosan.R
 import c.m.koskosan.databinding.FragmentTransactionBinding
 import c.m.koskosan.util.gone
 import c.m.koskosan.util.invisible
+import c.m.koskosan.util.snackBarBasicShort
 import c.m.koskosan.util.visible
 import c.m.koskosan.vo.ResponseState
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -19,13 +20,22 @@ class TransactionFragment : Fragment() {
     private val transactionViewModel: TransactionViewModel by viewModel()
     private var _binding: FragmentTransactionBinding? = null
     private val binding get() = _binding!!
+    private lateinit var transactionAdapter: TransactionAdapter
+    private lateinit var layout: View
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTransactionBinding.inflate(inflater, container, false)
-        val view = binding.root
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // for handling item view utilities
+        layout = view
 
         // app bar title setup
         (activity as AppCompatActivity?)?.setSupportActionBar(binding.toolbarTransaction)
@@ -41,7 +51,6 @@ class TransactionFragment : Fragment() {
             binding.transactionSwipeRefreshView.isRefreshing = false
             initializeGetTransactionData()
         }
-        return view
     }
 
     // initialize get transaction data
@@ -54,7 +63,13 @@ class TransactionFragment : Fragment() {
                     // success state
                     showSuccessStateView()
 
-                    // TODO: show data to recyclerview
+                    // add data to recyclerview adapter
+                    transactionAdapter = TransactionAdapter { orderResponse ->
+                        layout.snackBarBasicShort(orderResponse.userName.toString())
+                    }
+                    transactionAdapter.submitList(response.data)
+                    binding.rvTransaction.adapter = transactionAdapter
+                    binding.rvTransaction.setHasFixedSize(true)
                 }
             }
         })

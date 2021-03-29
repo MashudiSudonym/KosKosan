@@ -62,6 +62,13 @@
     <string name="woman">Woman</string>
     <string name="man">Man</string>
     <string name="title_search">Search</string>
+    <string name="transaction_date" translatable="false">30/03/2021</string>
+    <string name="transaction_by">Transaction by</string>
+    <string name="transaction_from">Transaction From</string>
+    <string name="transaction_status">Transaction Status</string>
+    <string name="cancel_status">Canceled</string>
+    <string name="accept_status">Accepted</string>
+    <string name="survey_status">Survey Location</string>
+    <string name="waiting_status">Waiting to owner response</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
