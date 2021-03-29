@@ -51,7 +51,11 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val view = binding.root
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // for handling item view utilities
         layout = view
@@ -82,8 +86,6 @@ class HomeFragment : Fragment() {
             // get data
             initializeGetLocationData()
         }
-
-        return view
     }
 
     // initialize get data from database

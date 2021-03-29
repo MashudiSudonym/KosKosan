@@ -30,7 +30,11 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        val view = binding.root
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // appbar title setup
         (activity as AppCompatActivity?)?.setSupportActionBar(binding.toolbarProfile)
@@ -53,8 +57,6 @@ class ProfileFragment : Fragment() {
             val intentAboutActivity = Intent(requireContext(), AboutActivity::class.java)
             startActivity(intentAboutActivity)
         }
-
-        return view
     }
 
     // function for get user profile data and observing the state of data
