@@ -117,7 +117,10 @@ class SearchFragment : Fragment() {
                                         showSuccessStateView()
 
                                         // add search result to recyclerview
-                                        addDataToRecyclerView(response)
+                                        searchAdapter.submitList(response.data)
+
+                                        binding.rvSearchLocation.adapter = searchAdapter
+                                        binding.rvSearchLocation.setHasFixedSize(true)
                                     }
 
                                 }
@@ -128,14 +131,6 @@ class SearchFragment : Fragment() {
                 return true
             }
         })
-    }
-
-    // add data to recyclerview
-    private fun addDataToRecyclerView(response: ResponseState<List<LocationEntity>>) {
-        searchAdapter.submitList(response.data)
-
-        binding.rvSearchLocation.adapter = searchAdapter
-        binding.rvSearchLocation.setHasFixedSize(true)
     }
 
     // handle success state of view
