@@ -107,7 +107,7 @@ class SearchFragment : Fragment() {
                         searchViewModel.searchContent.observe(viewLifecycleOwner, { response ->
                             if (response != null) when (response) {
                                 is ResponseState.Error -> showErrorStateView() // error state view
-                                is ResponseState.Loading -> showLoadingStateView() // loading state view
+                                is ResponseState.Loading -> showErrorStateView() // loading state view, for this case show the empty box for no result search
                                 is ResponseState.Success -> {
                                     // if searching result is null or empty show error state (empty box animation)
                                     if (response.data.isNullOrEmpty()) {
