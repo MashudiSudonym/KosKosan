@@ -81,8 +81,6 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:4.9.0"
     implementation 'androidx.annotation:annotation:1.2.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
-    // Loading Animation
-    implementation 'com.facebook.shimmer:shimmer:0.5.0'
     // navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
