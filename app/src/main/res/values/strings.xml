@@ -70,5 +70,4 @@
     <string name="accept_status">Accepted</string>
     <string name="survey_status">Survey Location</string>
     <string name="waiting_status">Waiting to owner response</string>
-    <!-- TODO: Remove or change this placeholder text -->
 </resources>

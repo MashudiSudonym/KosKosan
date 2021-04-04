@@ -38,7 +38,6 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by viewModel()
     private lateinit var homeAdapter: HomeAdapter
-    private lateinit var layout: View
     private var deviceLocationLatitude: Double? = 0.0
     private var deviceLocationLongitude: Double? = 0.0
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -57,9 +56,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // for handling item view utilities
-        layout = view
-
         // Initialize fused location provider
         fusedLocationClient =
             LocationServices.getFusedLocationProviderClient((activity as AppCompatActivity))
@@ -71,6 +67,15 @@ class HomeFragment : Fragment() {
         (activity as AppCompatActivity?)?.setSupportActionBar(binding.toolbarHome)
         (activity as AppCompatActivity?)?.supportActionBar?.apply {
             title = getString(R.string.app_name)
+        }
+
+        // initialize recyclerview adapter
+        homeAdapter = HomeAdapter { locationResponse ->
+            val detailActivityIntent =
+                Intent(requireActivity(), DetailActivity::class.java).apply {
+                    putExtra(UID, locationResponse.uid)
+                }
+            startActivity(detailActivityIntent)
         }
 
         // initialize get data from database
@@ -137,13 +142,6 @@ class HomeFragment : Fragment() {
                     }
 
                     // add data to recycler view adapter
-                    homeAdapter = HomeAdapter { locationResponse ->
-                        val detailActivityIntent =
-                            Intent(requireActivity(), DetailActivity::class.java).apply {
-                                putExtra(UID, locationResponse.uid)
-                            }
-                        startActivity(detailActivityIntent)
-                    }
                     homeAdapter.submitList(locationList)
                     binding.rvLocation.adapter = homeAdapter
                     binding.rvLocation.setHasFixedSize(true)

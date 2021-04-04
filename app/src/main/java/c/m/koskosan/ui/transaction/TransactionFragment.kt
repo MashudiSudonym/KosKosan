@@ -43,6 +43,11 @@ class TransactionFragment : Fragment() {
             title = getString(R.string.transaction)
         }
 
+        // initialize recyclerview adapter
+        transactionAdapter = TransactionAdapter { orderResponse ->
+            layout.snackBarBasicShort(orderResponse.userName.toString())
+        }
+
         // initialize get transaction data
         initializeGetTransactionData()
 
@@ -64,9 +69,6 @@ class TransactionFragment : Fragment() {
                     showSuccessStateView()
 
                     // add data to recyclerview adapter
-                    transactionAdapter = TransactionAdapter { orderResponse ->
-                        layout.snackBarBasicShort(orderResponse.userName.toString())
-                    }
                     transactionAdapter.submitList(response.data)
                     binding.rvTransaction.adapter = transactionAdapter
                     binding.rvTransaction.setHasFixedSize(true)
