@@ -82,7 +82,7 @@ class FirebaseRepository {
                             }
                     }
                 }
-                .addOnFailureListener { exception ->
+                .addOnFailureListener {
                     progressUploadingData.value = ResponseState.Error("upload image failed", null)
                 }
                 .addOnProgressListener { snapshot ->
