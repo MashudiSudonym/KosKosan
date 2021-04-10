@@ -14,4 +14,5 @@
 ## see demo:
 
 * progress one [YoutubeLink](https://youtu.be/kQav4L1PtpI)
-* Progress two
+* Progress two [YoutubeLink](https://www.youtube.com/watch?v=Gx2s2B3gDE4)
+* Progress three [YoutubeLink](https://www.youtube.com/watch?v=Pt-j02MUTnk)
