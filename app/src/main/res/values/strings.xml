@@ -70,4 +70,7 @@
     <string name="accept_status">Accepted</string>
     <string name="survey_status">Survey Location</string>
     <string name="waiting_status">Waiting to owner response</string>
+    <string name="survey_schedule_date">Survey Schedule Date</string>
+    <string name="rent_start_date">Rent Start Date</string>
+    <string name="rent_stop_date">Rent Stop Date</string>
 </resources>

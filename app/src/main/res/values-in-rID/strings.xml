@@ -69,4 +69,7 @@
     <string name="accept_status">Disetujui</string>
     <string name="survey_status">Survei ke Lokasi</string>
     <string name="waiting_status">Menunggu respon pemilik kos</string>
+    <string name="survey_schedule_date">Tanggal Jadwal Survei</string>
+    <string name="rent_start_date">Tanggal Mulai Sewa</string>
+    <string name="rent_stop_date">Tanggal Selesai Sewa</string>
 </resources>
