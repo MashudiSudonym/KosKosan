@@ -1,14 +1,18 @@
 package c.m.koskosan.ui.login
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import c.m.koskosan.R
 import c.m.koskosan.databinding.ActivityLoginBinding
 import c.m.koskosan.ui.main.MainActivity
 import c.m.koskosan.util.Constants
+import c.m.koskosan.util.requestPermission
 import c.m.koskosan.util.snackBarBasicShort
 import c.m.koskosan.util.snackBarWarningLong
 import com.firebase.ui.auth.AuthUI
@@ -28,6 +32,9 @@ class LoginActivity : AppCompatActivity() {
         val view = loginBinding.root
         layout = view
         setContentView(view)
+
+        // request location permission
+        requestPermission()
 
         // login button
         loginBinding.btnLogin.setOnClickListener {
@@ -55,10 +62,11 @@ class LoginActivity : AppCompatActivity() {
             val response = IdpResponse.fromResultIntent(data)
 
             if (resultCode == Activity.RESULT_OK) {
+                // stop login activity
+                finish()
                 val mainActivityIntent = Intent(this, MainActivity::class.java)
                 // if login result accepted, user will be parsing to main activity
                 startActivity(mainActivityIntent)
-                finish()
             } else {
                 if (response == null) {
                     // if user canceled the login process, stay on this activity and show alert

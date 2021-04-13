@@ -1,5 +1,6 @@
 package c.m.koskosan.util
 
+import android.Manifest
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 
@@ -15,3 +16,15 @@ fun AppCompatActivity.shouldShowRequestPermissionRationaleCompat(permission: Str
 
 fun AppCompatActivity.requestPermissionsCompat(permissionArray: Array<String>, requestCode: Int) =
     ActivityCompat.requestPermissions(this, permissionArray, requestCode)
+
+// request permission for get location
+fun AppCompatActivity.requestPermission() {
+    ActivityCompat.requestPermissions(
+        this,
+        arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ),
+        Constants.PERMISSION_REQUEST_LOCATION
+    )
+}
