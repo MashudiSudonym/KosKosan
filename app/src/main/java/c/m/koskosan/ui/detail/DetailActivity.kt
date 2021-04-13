@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import c.m.koskosan.R
 import c.m.koskosan.databinding.ActivityDetailBinding
-import c.m.koskosan.ui.order.OrderActivity
+import c.m.koskosan.ui.form.order.OrderActivity
 import c.m.koskosan.util.Constants
 import c.m.koskosan.util.Constants.Companion.UID
 import c.m.koskosan.util.gone

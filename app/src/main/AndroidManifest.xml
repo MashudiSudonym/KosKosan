@@ -30,7 +30,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KosKosan">
-        <activity android:name=".ui.order.OrderActivity"></activity>
+        <activity android:name=".ui.form.order.OrderActivity"></activity>
         <activity android:name=".ui.detail.DetailActivity" />
         <activity android:name=".ui.form.update.user.profile.UpdateUserProfileActivity" />
         <activity android:name=".ui.about.AboutActivity" />

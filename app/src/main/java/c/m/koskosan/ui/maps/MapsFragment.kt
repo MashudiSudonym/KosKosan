@@ -18,9 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import c.m.koskosan.R
 import c.m.koskosan.ui.detail.DetailActivity
-import c.m.koskosan.util.Constants
-import c.m.koskosan.util.gone
-import c.m.koskosan.util.visible
+import c.m.koskosan.util.*
 import c.m.koskosan.vo.ResponseState
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.gms.location.*
@@ -35,8 +33,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MapsFragment : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var loadingAnimationView: LottieAnimationView
-    private lateinit var errorAnimationView: LottieAnimationView
+    private var loadingAnimationView: LottieAnimationView? = null
+    private var errorAnimationView: LottieAnimationView? = null
     private val mapsViewModel: MapsViewModel by viewModel()
     private var deviceLocationLatitude: Double? = 0.0
     private var deviceLocationLongitude: Double? = 0.0
@@ -51,13 +49,14 @@ class MapsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         // initialize view
-        loadingAnimationView = (activity as AppCompatActivity).findViewById(R.id.anim_loading)
-        errorAnimationView = (activity as AppCompatActivity).findViewById(R.id.anim_error)
+        loadingAnimationView = requireActivity().findViewById(R.id.anim_loading)
+        errorAnimationView = requireActivity().findViewById(R.id.anim_error)
 
         // Initialize fused location provider
         fusedLocationClient =
-            LocationServices.getFusedLocationProviderClient((activity as AppCompatActivity))
+            LocationServices.getFusedLocationProviderClient(requireActivity())
 
         // get device coordinate
         getLastLocation()
@@ -88,7 +87,7 @@ class MapsFragment : Fragment() {
                                     startActivity(intent)
                                 }
                             } else {
-                                requestPermission()
+                                requireActivity().requestPermission()
                             }
 
                             isMyLocationEnabled = true
@@ -155,20 +154,20 @@ class MapsFragment : Fragment() {
 
     // handle success state of view
     private fun showSuccessStateView() {
-        loadingAnimationView.gone()
-        errorAnimationView.gone()
+        loadingAnimationView?.invisible()
+        errorAnimationView?.invisible()
     }
 
     // handle error state of view
     private fun showErrorStateView() {
-        errorAnimationView.visible()
-        loadingAnimationView.gone()
+        errorAnimationView?.visible()
+        loadingAnimationView?.invisible()
     }
 
     // handle loading state of view
     private fun showLoadingStateView() {
-        loadingAnimationView.visible()
-        errorAnimationView.gone()
+        loadingAnimationView?.visible()
+        errorAnimationView?.invisible()
     }
 
     // request last location
@@ -190,7 +189,7 @@ class MapsFragment : Fragment() {
                 startActivity(intent)
             }
         } else {
-            requestPermission()
+            requireActivity().requestPermission()
         }
     }
 
@@ -243,18 +242,6 @@ class MapsFragment : Fragment() {
             return true
         }
         return false
-    }
-
-    // request permission for get location
-    private fun requestPermission() {
-        ActivityCompat.requestPermissions(
-            requireActivity(),
-            arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ),
-            Constants.PERMISSION_REQUEST_LOCATION
-        )
     }
 
     // permission result

@@ -2,6 +2,7 @@ package c.m.koskosan.ui.form.update.user.profile
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
@@ -11,6 +12,8 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import c.m.koskosan.R
@@ -43,6 +46,63 @@ class UpdateUserProfileActivity : AppCompatActivity() {
     private var photoPathURI: Uri? = null
     private lateinit var currentPhotoPath: String
     private lateinit var sheenValidator: SheenValidator
+    private var takePictureCameraLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                // Get the dimensions of the View
+                val targetWidth = 200
+                val targetHeight = 200
+
+                val bmOptions = BitmapFactory.Options().apply {
+                    // Get the dimensions of the bitmap
+                    inJustDecodeBounds = true
+
+                    val photoWidth: Int = outWidth
+                    val photoHeight: Int = outHeight
+
+                    // Determine how much to scale down the image
+                    val scaleFactor: Int =
+                        (photoWidth / targetWidth).coerceAtMost(photoHeight / targetHeight)
+
+                    // Decode the image file into a Bitmap sized to fill the View
+                    inJustDecodeBounds = false
+                    inSampleSize = scaleFactor
+                }
+                BitmapFactory.decodeFile(currentPhotoPath, bmOptions)?.also { bitmap ->
+                    updateUserProfileBinding.imgProfile.setImageBitmap(bitmap)
+                }
+            } else {
+                layout.snackBarWarningLong(getString(R.string.data_error_null))
+            }
+        }
+
+    @Suppress("DEPRECATION")
+    private var takePictureGalleryLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                if (result.data != null) {
+                    photoPathURI = result.data?.data
+
+                    val bitmap =
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+                            val photoSource =
+                                photoPathURI?.let { uri ->
+                                    ImageDecoder.createSource(
+                                        this.contentResolver,
+                                        uri
+                                    )
+                                }
+                            photoSource?.let { ImageDecoder.decodeBitmap(it) }
+                        } else {
+                            MediaStore.Images.Media.getBitmap(this.contentResolver, photoPathURI)
+                        }
+
+                    updateUserProfileBinding.imgProfile.setImageBitmap(bitmap)
+                }
+            } else {
+                layout.snackBarWarningLong(getString(R.string.data_error_null))
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -328,7 +388,7 @@ class UpdateUserProfileActivity : AppCompatActivity() {
                         it
                     )
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoPathURI)
-                    startActivityForResult(takePictureIntent, Constants.CAMERA_REQUEST_CODE)
+                    takePictureCameraLauncher.launch(takePictureIntent)
                 }
             }
         }
@@ -396,67 +456,14 @@ class UpdateUserProfileActivity : AppCompatActivity() {
         ).also { pickPictureIntent ->
             pickPictureIntent.type = "image/*"
             pickPictureIntent.resolveActivity(packageManager).also {
-                startActivityForResult(pickPictureIntent, Constants.PICK_PHOTO_CODE)
-            }
-        }
-    }
-
-    // Use onActivityResult for catch the image capture from camera or gallery
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        when (requestCode) {
-            Constants.CAMERA_REQUEST_CODE -> {
-                // Get the dimensions of the View
-                val targetWidth = 200
-                val targetHeight = 200
-
-                val bmOptions = BitmapFactory.Options().apply {
-                    // Get the dimensions of the bitmap
-                    inJustDecodeBounds = true
-
-                    val photoWidth: Int = outWidth
-                    val photoHeight: Int = outHeight
-
-                    // Determine how much to scale down the image
-                    val scaleFactor: Int =
-                        (photoWidth / targetWidth).coerceAtMost(photoHeight / targetHeight)
-
-                    // Decode the image file into a Bitmap sized to fill the View
-                    inJustDecodeBounds = false
-                    inSampleSize = scaleFactor
-                }
-                BitmapFactory.decodeFile(currentPhotoPath, bmOptions)?.also { bitmap ->
-                    updateUserProfileBinding.imgProfile.setImageBitmap(bitmap)
-                }
-            }
-            Constants.PICK_PHOTO_CODE -> {
-                if (data != null) {
-                    photoPathURI = data.data
-
-                    val bitmap =
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
-                            val photoSource =
-                                photoPathURI?.let {
-                                    ImageDecoder.createSource(
-                                        this.contentResolver,
-                                        it
-                                    )
-                                }
-                            photoSource?.let { ImageDecoder.decodeBitmap(it) }
-                        } else {
-                            MediaStore.Images.Media.getBitmap(this.contentResolver, photoPathURI)
-                        }
-
-                    updateUserProfileBinding.imgProfile.setImageBitmap(bitmap)
-                }
+                takePictureGalleryLauncher.launch(pickPictureIntent)
             }
         }
     }
 
     // handling back button for give a warning before back to last activity
     override fun onBackPressed() {
-        var shouldAllowBack: Boolean = false
+        var shouldAllowBack = false
 
         if (shouldAllowBack) {
             super.onBackPressed()

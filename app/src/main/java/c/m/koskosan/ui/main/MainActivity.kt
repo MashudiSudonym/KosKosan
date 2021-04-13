@@ -2,7 +2,6 @@ package c.m.koskosan.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.navigation.findNavController
@@ -16,7 +15,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsResultCallback {
     private val mainViewModel: MainViewModel by viewModel()
     private lateinit var mainBinding: ActivityMainBinding
-    private lateinit var layout: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +23,6 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         val view = mainBinding.root
         setContentView(view)
-
-        // initialize layout for using widget utilities
-        layout = view
 
         // Bottom Navigation and Navigation Controller
         val navView: BottomNavigationView = mainBinding.navView

@@ -24,6 +24,7 @@ import c.m.koskosan.util.Constants.Companion.PERMISSION_REQUEST_LOCATION
 import c.m.koskosan.util.Constants.Companion.UID
 import c.m.koskosan.util.gone
 import c.m.koskosan.util.invisible
+import c.m.koskosan.util.requestPermission
 import c.m.koskosan.util.visible
 import c.m.koskosan.vo.ResponseState
 import com.google.android.gms.location.*
@@ -190,7 +191,7 @@ class HomeFragment : Fragment() {
                 startActivity(intent)
             }
         } else {
-            requestPermission()
+            requireActivity().requestPermission()
         }
     }
 
@@ -243,18 +244,6 @@ class HomeFragment : Fragment() {
             return true
         }
         return false
-    }
-
-    // request permission for get location
-    private fun requestPermission() {
-        ActivityCompat.requestPermissions(
-            requireActivity(),
-            arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ),
-            PERMISSION_REQUEST_LOCATION
-        )
     }
 
     // permission result

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/order_layout"
-    tools:context=".ui.order.OrderActivity"
+    tools:context=".ui.form.order.OrderActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 

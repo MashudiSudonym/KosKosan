@@ -1,4 +1,4 @@
-package c.m.koskosan.ui.order
+package c.m.koskosan.ui.form.order
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

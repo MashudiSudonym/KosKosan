@@ -3,6 +3,7 @@ package c.m.koskosan.util
 import android.Manifest
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.FragmentActivity
 
 /**
  * Utility file for help about check and request permission
@@ -19,6 +20,18 @@ fun AppCompatActivity.requestPermissionsCompat(permissionArray: Array<String>, r
 
 // request permission for get location
 fun AppCompatActivity.requestPermission() {
+    ActivityCompat.requestPermissions(
+        this,
+        arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ),
+        Constants.PERMISSION_REQUEST_LOCATION
+    )
+}
+
+// request permission for get location (fragment)
+fun FragmentActivity.requestPermission() {
     ActivityCompat.requestPermissions(
         this,
         arrayOf(
