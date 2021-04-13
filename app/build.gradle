@@ -5,6 +5,8 @@ plugins {
     id 'koin'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'com.google.firebase.firebase-perf'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -97,6 +99,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-storage-ktx'
+    implementation 'com.google.firebase:firebase-perf-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
     // Firebase UI
     implementation 'com.firebaseui:firebase-ui-auth:7.1.1'
     // Lottie Animation

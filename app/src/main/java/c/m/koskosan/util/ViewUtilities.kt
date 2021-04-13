@@ -51,6 +51,7 @@ fun View.snackBarWarningIndefiniteAction(
     }
         .setTextColor(Color.WHITE)
         .setBackgroundTint(Color.RED)
+        .setActionTextColor(Color.WHITE)
         .show()
 }
 
