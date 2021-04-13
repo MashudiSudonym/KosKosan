@@ -73,4 +73,6 @@
     <string name="survey_schedule_date">Survey Schedule Date</string>
     <string name="rent_start_date">Rent Start Date</string>
     <string name="rent_stop_date">Rent Stop Date</string>
+    <string name="order_confirmation">Order Confirmation</string>
+    <string name="user_name">User Name</string>
 </resources>

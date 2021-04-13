@@ -72,4 +72,6 @@
     <string name="survey_schedule_date">Tanggal Jadwal Survei</string>
     <string name="rent_start_date">Tanggal Mulai Sewa</string>
     <string name="rent_stop_date">Tanggal Selesai Sewa</string>
+    <string name="order_confirmation">Konfirmasi Pemesanan</string>
+    <string name="user_name">Nama Pengguna</string>
 </resources>
