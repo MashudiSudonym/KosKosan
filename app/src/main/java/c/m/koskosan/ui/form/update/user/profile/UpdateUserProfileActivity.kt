@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
@@ -24,6 +25,7 @@ import c.m.koskosan.ui.main.MainActivity
 import c.m.koskosan.util.*
 import c.m.koskosan.vo.ResponseState
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import id.rizmaulana.sheenvalidator.lib.SheenValidator
@@ -31,7 +33,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -44,8 +49,10 @@ class UpdateUserProfileActivity : AppCompatActivity() {
     private lateinit var sheetBehavior: BottomSheetBehavior<View>
     private var sheetDialog: BottomSheetDialog? = null
     private var photoPathURI: Uri? = null
-    private lateinit var currentPhotoPath: String
+    private var currentPhotoPath: String? = ""
     private lateinit var sheenValidator: SheenValidator
+
+    @Suppress("DEPRECATION")
     private var takePictureCameraLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -67,9 +74,14 @@ class UpdateUserProfileActivity : AppCompatActivity() {
                     // Decode the image file into a Bitmap sized to fill the View
                     inJustDecodeBounds = false
                     inSampleSize = scaleFactor
+                    inPurgeable = true
                 }
                 BitmapFactory.decodeFile(currentPhotoPath, bmOptions)?.also { bitmap ->
-                    updateUserProfileBinding.imgProfile.setImageBitmap(bitmap)
+
+                    Glide.with(this).load(bitmap).apply(
+                        RequestOptions().centerCrop().placeholder(R.drawable.ic_baseline_person_pin)
+                            .error(R.drawable.ic_broken_image)
+                    ).into(updateUserProfileBinding.imgProfile)
                 }
             } else {
                 layout.snackBarWarningLong(getString(R.string.data_error_null))
@@ -97,7 +109,10 @@ class UpdateUserProfileActivity : AppCompatActivity() {
                             MediaStore.Images.Media.getBitmap(this.contentResolver, photoPathURI)
                         }
 
-                    updateUserProfileBinding.imgProfile.setImageBitmap(bitmap)
+                    Glide.with(this).load(bitmap).apply(
+                        RequestOptions().centerCrop().placeholder(R.drawable.ic_baseline_person_pin)
+                            .error(R.drawable.ic_broken_image)
+                    ).into(updateUserProfileBinding.imgProfile)
                 }
             } else {
                 layout.snackBarWarningLong(getString(R.string.data_error_null))
@@ -375,22 +390,27 @@ class UpdateUserProfileActivity : AppCompatActivity() {
     // Logic for open camera application
     @SuppressLint("QueryPermissionsNeeded")
     private fun startCamera() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            // Ensure that there's a camera activity to handle the intent
-            takePictureIntent.resolveActivity(packageManager)?.also {
-                // Create the File where the photo should go
-                val photoFile: File = createImageFile()
-                // Continue only if the File was successfully created
-                photoFile.also {
-                    photoPathURI = FileProvider.getUriForFile(
-                        this,
-                        "$packageName.fileprovider",
-                        it
-                    )
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoPathURI)
-                    takePictureCameraLauncher.launch(takePictureIntent)
+        try {
+            Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+                // Ensure that there's a camera activity to handle the intent
+                takePictureIntent.resolveActivity(packageManager)?.also { _ ->
+                    // Create the File where the photo should go
+                    val photoFile: File = createImageFile()
+                    // Continue only if the File was successfully created
+                    photoFile.also {
+                        photoPathURI = FileProvider.getUriForFile(
+                            this,
+                            "$packageName.fileprovider",
+                            it
+                        )
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoPathURI)
+                        takePictureCameraLauncher.launch(takePictureIntent)
+                    }
                 }
             }
+        } catch (error: IOException) {
+            Timber.e(error)
+            layout.snackBarWarningLong(getString(R.string.failed_load_photo_camera))
         }
     }
 
@@ -398,7 +418,7 @@ class UpdateUserProfileActivity : AppCompatActivity() {
     @SuppressLint("SimpleDateFormat")
     @Throws(IOException::class)
     private fun createImageFile(): File {
-        // Create an image file name
+        /// Create an image file name
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
 

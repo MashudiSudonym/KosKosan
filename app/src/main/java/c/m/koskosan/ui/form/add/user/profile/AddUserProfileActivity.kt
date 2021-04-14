@@ -32,6 +32,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -45,7 +46,7 @@ class AddUserProfileActivity : AppCompatActivity(),
     private lateinit var sheetBehavior: BottomSheetBehavior<View>
     private var sheetDialog: BottomSheetDialog? = null
     private var photoPathURI: Uri? = null
-    private lateinit var currentPhotoPath: String
+    private var currentPhotoPath: String? = null
     private lateinit var sheenValidator: SheenValidator
     private lateinit var layout: View
     private var takePictureCameraLauncher =
@@ -295,22 +296,27 @@ class AddUserProfileActivity : AppCompatActivity(),
     // Logic for open camera application
     @SuppressLint("QueryPermissionsNeeded")
     private fun startCamera() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            // Ensure that there's a camera activity to handle the intent
-            takePictureIntent.resolveActivity(packageManager)?.also {
-                // Create the File where the photo should go
-                val photoFile: File = createImageFile()
-                // Continue only if the File was successfully created
-                photoFile.also {
-                    photoPathURI = FileProvider.getUriForFile(
-                        this,
-                        "$packageName.fileprovider",
-                        it
-                    )
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoPathURI)
-                    takePictureCameraLauncher.launch(takePictureIntent)
+        try {
+            Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+                // Ensure that there's a camera activity to handle the intent
+                takePictureIntent.resolveActivity(packageManager)?.also {
+                    // Create the File where the photo should go
+                    val photoFile: File = createImageFile()
+                    // Continue only if the File was successfully created
+                    photoFile.also {
+                        photoPathURI = FileProvider.getUriForFile(
+                            this,
+                            "$packageName.fileprovider",
+                            it
+                        )
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoPathURI)
+                        takePictureCameraLauncher.launch(takePictureIntent)
+                    }
                 }
             }
+        } catch (error: IOException) {
+            Timber.e(error)
+            layout.snackBarWarningLong(getString(R.string.failed_load_photo_camera))
         }
     }
 
