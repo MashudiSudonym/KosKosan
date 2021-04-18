@@ -9,15 +9,17 @@ import c.m.koskosan.databinding.BottomSheetOrderConfirmationBinding
 import c.m.koskosan.util.Constants.Companion.FLAG_START_RENT_DATE
 import c.m.koskosan.util.Constants.Companion.FLAG_STOP_RENT_DATE
 import c.m.koskosan.util.Constants.Companion.FLAG_SURVEY_SCHEDULE_DATE
-import c.m.koskosan.util.datepicker.DatePickerFragment
+import c.m.koskosan.util.dialog.DatePickerFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import id.rizmaulana.sheenvalidator.lib.SheenValidator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OrderActivity : AppCompatActivity() {
     private lateinit var orderBinding: ActivityOrderBinding
     private val orderViewModel: OrderViewModel by viewModel()
     private lateinit var layout: View
+    private lateinit var sheenValidator: SheenValidator
     private lateinit var bottomSheet: View
     private lateinit var sheetBehavior: BottomSheetBehavior<View>
     private var sheetDialog: BottomSheetDialog? = null
@@ -36,6 +38,27 @@ class OrderActivity : AppCompatActivity() {
         // Initialize bottom sheet
         bottomSheetInitialize()
 
+        // selectedDate for survey schedule date, start rent date, stop rent date
+        selectedDate()
+
+        // validate edit text have a value
+        sheenValidator = SheenValidator(this).also { sheenValidator ->
+            sheenValidator.registerAsRequired(orderBinding.edtSurveyScheduleDate)
+            sheenValidator.registerAsRequired(orderBinding.edtRentStartDate)
+            sheenValidator.registerAsRequired(orderBinding.edtRentStopDate)
+            sheenValidator.setOnValidatorListener {
+                orderConfirmationBottomSheet()
+            }
+        }
+
+        // order button
+        orderBinding.btnOrderOrder.setOnClickListener {
+            sheenValidator.validate()
+        }
+    }
+
+    // selectedDate for survey schedule date, start rent date, stop rent date
+    private fun selectedDate() {
         // Initialize date picker fragment
         val datePickerFragment = DatePickerFragment()
 
@@ -78,11 +101,6 @@ class OrderActivity : AppCompatActivity() {
     private fun bottomSheetInitialize() {
         bottomSheet = orderBinding.bottomSheetOrder
         sheetBehavior = BottomSheetBehavior.from(bottomSheet)
-
-        // Choose image button for trigger bottom navigation show up
-        orderBinding.btnOrderOrder.setOnClickListener {
-            orderConfirmationBottomSheet()
-        }
     }
 
     // bottom sheet order confirmation
