@@ -1,4 +1,4 @@
-package c.m.koskosan.util.datepicker
+package c.m.koskosan.util.dialog
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -33,7 +33,7 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
             year,
             month,
             dayOfMonth
-        )
+        ).apply { datePicker.minDate = calendar.time.time }
     }
 
     @SuppressLint("SimpleDateFormat", "WeekBasedYear")
