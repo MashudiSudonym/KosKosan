@@ -1,4 +1,4 @@
-package c.m.koskosan.ui.transaction
+package c.m.koskosan.ui.transaction.list
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -8,10 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import c.m.koskosan.R
 import c.m.koskosan.data.model.OrderResponse
-import c.m.koskosan.databinding.ItemLocationBinding
 import c.m.koskosan.databinding.ItemTransactionBinding
-
-import com.bumptech.glide.Glide
 
 class TransactionAdapter(private val onClick: (OrderResponse) -> Unit) :
     ListAdapter<OrderResponse, TransactionAdapter.TransactionViewHolder>(DiffCallBack) {

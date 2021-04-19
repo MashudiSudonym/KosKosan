@@ -1,4 +1,4 @@
-package c.m.koskosan.ui.transaction
+package c.m.koskosan.ui.transaction.list
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package c.m.koskosan.ui.transaction
+package c.m.koskosan.ui.transaction.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

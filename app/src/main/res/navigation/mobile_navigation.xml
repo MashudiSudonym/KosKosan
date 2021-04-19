@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/navigation_transaction"
-        android:name="c.m.koskosan.ui.transaction.TransactionFragment"
+        android:name="c.m.koskosan.ui.transaction.list.TransactionFragment"
         android:label="fragment_transaction"
         tools:layout="@layout/fragment_transaction" />
     <fragment

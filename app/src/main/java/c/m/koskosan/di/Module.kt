@@ -16,7 +16,7 @@ import c.m.koskosan.ui.maps.MapsViewModel
 import c.m.koskosan.ui.profile.ProfileViewModel
 import c.m.koskosan.ui.search.SearchViewModel
 import c.m.koskosan.ui.splash.SplashscreenViewModel
-import c.m.koskosan.ui.transaction.TransactionViewModel
+import c.m.koskosan.ui.transaction.list.TransactionViewModel
 import c.m.koskosan.util.ContextProviders
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
