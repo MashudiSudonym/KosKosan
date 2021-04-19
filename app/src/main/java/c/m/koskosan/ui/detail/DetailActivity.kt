@@ -81,7 +81,6 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.apply {
             title = getString(R.string.detail)
             setDisplayHomeAsUpEnabled(true)
-            setDisplayHomeAsUpEnabled(true)
         }
 
         // initialize get detail data

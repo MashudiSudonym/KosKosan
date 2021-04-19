@@ -26,7 +26,6 @@ class AboutActivity : AppCompatActivity() {
         supportActionBar?.apply {
             title = getString(R.string.about)
             setDisplayHomeAsUpEnabled(true)
-            setDisplayHomeAsUpEnabled(true)
         }
     }
 
