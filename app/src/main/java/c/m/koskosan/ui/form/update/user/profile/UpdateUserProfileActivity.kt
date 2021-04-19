@@ -135,7 +135,6 @@ class UpdateUserProfileActivity : AppCompatActivity() {
         supportActionBar?.apply {
             title = getString(R.string.edit_profile)
             setDisplayHomeAsUpEnabled(true)
-            setDisplayHomeAsUpEnabled(true)
         }
 
         // initialize user profile data to form view

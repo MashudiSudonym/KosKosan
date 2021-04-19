@@ -221,10 +221,4 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/sending" />
 
-    <FrameLayout
-        android:id="@+id/bottom_sheet_order"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

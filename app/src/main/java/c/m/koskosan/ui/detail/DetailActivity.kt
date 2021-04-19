@@ -20,6 +20,9 @@ import c.m.koskosan.R
 import c.m.koskosan.databinding.ActivityDetailBinding
 import c.m.koskosan.ui.form.order.OrderActivity
 import c.m.koskosan.util.Constants
+import c.m.koskosan.util.Constants.Companion.LOCATION_ADDRESS
+import c.m.koskosan.util.Constants.Companion.LOCATION_NAME
+import c.m.koskosan.util.Constants.Companion.LOCATION_PHONE
 import c.m.koskosan.util.Constants.Companion.UID
 import c.m.koskosan.util.gone
 import c.m.koskosan.util.invisible
@@ -71,7 +74,6 @@ class DetailActivity : AppCompatActivity() {
         getLastLocation()
 
         // get parsing intent data
-        val intent = intent
         uid = intent.getStringExtra(UID)
 
         // AppBar / ActionBar Title Setup
@@ -95,10 +97,6 @@ class DetailActivity : AppCompatActivity() {
             // get data
             initializeGetLocationDataByUid()
         }
-
-        // order button navigate to order activity
-        val orderActivityIntent = Intent(this, OrderActivity::class.java)
-        detailBinding.btnOrder.setOnClickListener { startActivity(orderActivityIntent) }
     }
 
     // initialize get detail data
@@ -200,6 +198,15 @@ class DetailActivity : AppCompatActivity() {
                             }
                         }
                     }
+
+                    // order button navigate to order activity
+                    val orderActivityIntent = Intent(this, OrderActivity::class.java).apply {
+                        putExtra(UID, response.data?.uid)
+                        putExtra(LOCATION_NAME, response.data?.name)
+                        putExtra(LOCATION_ADDRESS, response.data?.address)
+                        putExtra(LOCATION_PHONE, response.data?.phone)
+                    }
+                    detailBinding.btnOrder.setOnClickListener { startActivity(orderActivityIntent) }
                 }
             }
         })

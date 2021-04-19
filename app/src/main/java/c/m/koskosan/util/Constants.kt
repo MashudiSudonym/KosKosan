@@ -14,5 +14,8 @@ class Constants {
         const val FLAG_SURVEY_SCHEDULE_DATE = 0
         const val FLAG_START_RENT_DATE = 1
         const val FLAG_STOP_RENT_DATE = 2
+        const val LOCATION_NAME = "location name"
+        const val LOCATION_ADDRESS = "location address"
+        const val LOCATION_PHONE = "location phone"
     }
 }
