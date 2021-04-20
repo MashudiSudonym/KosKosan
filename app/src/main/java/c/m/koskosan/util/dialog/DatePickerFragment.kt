@@ -40,7 +40,7 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         val setCalendar = Calendar.getInstance()
         setCalendar.set(year, month, dayOfMonth)
-        val format = SimpleDateFormat("yyyy-MM-dd")
+        val format = SimpleDateFormat("d-MMMM-yyyy" )
         val date = format.format(setCalendar.time)
 
         when (flag) {

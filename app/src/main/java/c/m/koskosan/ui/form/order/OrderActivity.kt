@@ -94,6 +94,7 @@ class OrderActivity : AppCompatActivity() {
             supportFragmentManager,
             getString(R.string.order_confirmation)
         )
+
     }
 
     // selectedDate for survey schedule date, start rent date, stop rent date

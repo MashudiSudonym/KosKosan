@@ -37,7 +37,7 @@ val viewModelModule: Module = module {
     viewModel { DetailViewModel(get()) }
     viewModel { TransactionViewModel(get(), get()) }
     viewModel { SearchViewModel(get(), get(), get()) }
-    viewModel { OrderViewModel() }
+    viewModel { OrderViewModel(get(), get()) }
 }
 
 val databaseModule: Module = module {

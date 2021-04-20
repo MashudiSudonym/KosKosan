@@ -205,6 +205,55 @@ class FirebaseRepository {
         return location
     }
 
+    // create order
+    fun createOrderData(
+        userUID: String,
+        userName: String,
+        userAddress: String,
+        userPhone: String,
+        nameLocation: String,
+        uidLocation: String,
+        addressLocation: String,
+        phoneLocation: String,
+        orderCreated: String,
+        orderStatus: Int,
+        surveySchedule: String,
+        rentStart: String,
+        rentStop: String
+    ): LiveData<ResponseState<OrderResponse>> {
+        val order: MutableLiveData<ResponseState<OrderResponse>> = MutableLiveData()
+        val randomOrderUID = orderCollection.document().id
+        val mapOrderData = OrderResponse(
+            randomOrderUID,
+            userUID,
+            userName,
+            userAddress,
+            userPhone,
+            nameLocation,
+            uidLocation,
+            addressLocation,
+            phoneLocation,
+            orderCreated,
+            orderStatus,
+            surveySchedule,
+            rentStart,
+            rentStop
+        ).toMap()
+
+        // show loading state
+        order.value = ResponseState.Loading(null)
+
+        orderCollection.document(randomOrderUID).set(mapOrderData).addOnSuccessListener {
+            // show success state
+            order.value = ResponseState.Success(null)
+        }
+            .addOnFailureListener { exception ->
+                // show error state
+                order.value = ResponseState.Error(exception.localizedMessage, null)
+            }
+        return order
+    }
+
     // get user order by uid
     fun readOrderByUid(uid: String): LiveData<ResponseState<List<OrderResponse>>> {
         val orders: MutableLiveData<ResponseState<List<OrderResponse>>> = MutableLiveData()
