@@ -76,4 +76,7 @@
     <string name="order_confirmation">Order Confirmation</string>
     <string name="user_name">User Name</string>
     <string name="failed_load_photo_camera">Failed load photo from camera</string>
+    <string name="created_order_at">Created order at :</string>
+    <string name="ordered_by">Ordered by :</string>
+    <string name="order_boarding_house_at">Order a boarding house at :</string>
 </resources>

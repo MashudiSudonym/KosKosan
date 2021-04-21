@@ -14,7 +14,8 @@ class TransactionAdapter(private val onClick: (OrderResponse) -> Unit) :
     ListAdapter<OrderResponse, TransactionAdapter.TransactionViewHolder>(DiffCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
-        val view = ItemTransactionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view =
+            ItemTransactionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TransactionViewHolder(view, onClick)
     }
 
@@ -23,7 +24,10 @@ class TransactionAdapter(private val onClick: (OrderResponse) -> Unit) :
         holder.bind(contents)
     }
 
-    class TransactionViewHolder(itemView: ItemTransactionBinding, onClick: (OrderResponse) -> Unit) :
+    class TransactionViewHolder(
+        itemView: ItemTransactionBinding,
+        onClick: (OrderResponse) -> Unit
+    ) :
         RecyclerView.ViewHolder(itemView.root) {
         private val transactionDateLayout = itemView.tvTransactionDate
         private val transactionByLayout = itemView.tvTransactionBy
@@ -41,18 +45,22 @@ class TransactionAdapter(private val onClick: (OrderResponse) -> Unit) :
 
         @SuppressLint("SetTextI18n")
         fun bind(OrderResponse: OrderResponse) {
+            val context = itemView.context
             currentTransaction = OrderResponse
 
             // add data to widget view
-            transactionDateLayout.text = currentTransaction?.orderCreated
-            transactionByLayout.text = currentTransaction?.userName
-            transactionFromLayout.text = currentTransaction?.nameLocation
+            transactionDateLayout.text =
+                context.getString(R.string.created_order_at) + currentTransaction?.orderCreated
+            transactionByLayout.text =
+                context.getString(R.string.ordered_by) + currentTransaction?.userName
+            transactionFromLayout.text =
+                context.getString(R.string.order_boarding_house_at) + currentTransaction?.nameLocation
             transactionStatusLayout.text = when (currentTransaction?.orderStatus) {
-                0 -> itemView.context.getString(R.string.waiting_status)
-                1 -> itemView.context.getString(R.string.survey_status)
-                2 -> itemView.context.getString(R.string.accept_status)
-                3 -> itemView.context.getString(R.string.cancel_status)
-                else -> itemView.context.getString(R.string.strip)
+                0 -> context.getString(R.string.waiting_status)
+                1 -> context.getString(R.string.survey_status)
+                2 -> context.getString(R.string.accept_status)
+                3 -> context.getString(R.string.cancel_status)
+                else -> context.getString(R.string.strip)
             }
         }
     }
