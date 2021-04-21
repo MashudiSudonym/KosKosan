@@ -3,6 +3,7 @@ package c.m.koskosan.ui.form.order
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
 import c.m.koskosan.R
 import c.m.koskosan.databinding.ActivityOrderBinding
 import c.m.koskosan.util.Constants.Companion.FLAG_START_RENT_DATE
@@ -13,7 +14,7 @@ import c.m.koskosan.util.Constants.Companion.LOCATION_ADDRESS
 import c.m.koskosan.util.Constants.Companion.LOCATION_NAME
 import c.m.koskosan.util.Constants.Companion.LOCATION_PHONE
 import c.m.koskosan.util.Constants.Companion.UID
-import c.m.koskosan.util.dialog.DatePickerFragment
+import c.m.koskosan.ui.form.order.dialog.OrderDatePickerDialog
 import id.rizmaulana.sheenvalidator.lib.SheenValidator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -100,12 +101,12 @@ class OrderActivity : AppCompatActivity() {
     // selectedDate for survey schedule date, start rent date, stop rent date
     private fun selectedDate() {
         // Initialize date picker fragment
-        val datePickerFragment = DatePickerFragment()
+        val orderDatePickerDialog = OrderDatePickerDialog()
 
         // selected survey schedule date
         orderBinding.edtSurveyScheduleDate.setOnClickListener {
-            datePickerFragment.flag = FLAG_SURVEY_SCHEDULE_DATE
-            datePickerFragment.show(
+            orderDatePickerDialog.flag = FLAG_SURVEY_SCHEDULE_DATE
+            orderDatePickerDialog.show(
                 supportFragmentManager,
                 getString(R.string.survey_schedule_date)
             )
@@ -113,14 +114,21 @@ class OrderActivity : AppCompatActivity() {
 
         // selected start rent date
         orderBinding.edtRentStartDate.setOnClickListener {
-            datePickerFragment.flag = FLAG_START_RENT_DATE
-            datePickerFragment.show(supportFragmentManager, getString(R.string.rent_start_date))
+            orderDatePickerDialog.flag = FLAG_START_RENT_DATE
+            orderDatePickerDialog.show(supportFragmentManager, getString(R.string.rent_start_date))
+
+            // if edit text rent start date is edited, edit text rent is disable
+            orderBinding.edtRentStopDate.setText("")
         }
+
+
+        // if edit text rent start date is empty, edit text rent stop date is disable
+        orderBinding.edtRentStartDate.doAfterTextChanged { orderBinding.edtRentStopDate.isEnabled = true }
 
         // selected stop rent date
         orderBinding.edtRentStopDate.setOnClickListener {
-            datePickerFragment.flag = FLAG_STOP_RENT_DATE
-            datePickerFragment.show(supportFragmentManager, getString(R.string.rent_stop_date))
+            orderDatePickerDialog.flag = FLAG_STOP_RENT_DATE
+            orderDatePickerDialog.show(supportFragmentManager, getString(R.string.rent_stop_date))
         }
 
         // observe value date for survey schedule, rent start, rent stop

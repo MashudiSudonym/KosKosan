@@ -182,6 +182,7 @@
                         android:ems="10"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
+                        android:enabled="false"
                         android:fontFamily="@font/poppins"
                         android:hint="@string/rent_stop_date"
                         android:importantForAutofill="no"
