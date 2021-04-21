@@ -17,6 +17,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import c.m.koskosan.R
+import c.m.koskosan.data.model.LocationResponse
 import c.m.koskosan.databinding.ActivityDetailBinding
 import c.m.koskosan.ui.form.order.OrderActivity
 import c.m.koskosan.util.Constants
@@ -99,7 +100,6 @@ class DetailActivity : AppCompatActivity() {
     }
 
     // initialize get detail data
-    @SuppressLint("SetTextI18n")
     private fun initializeGetLocationDataByUid() {
         detailViewModel.getLocationByUid(uid.toString()).observe(this, { response ->
             if (response != null) when (response) {
@@ -109,106 +109,124 @@ class DetailActivity : AppCompatActivity() {
                     // success state
                     showSuccessStateView()
 
-                    // google place link
-                    gPlaceUrl = response.data?.googlePlace
-
-                    // show basic data
-                    detailBinding.tvNameLocation.text = response.data?.name
-                    detailBinding.tvAddressLocation.text = response.data?.address
-                    detailBinding.tvPhoneLocation.text = response.data?.phone
-                    detailBinding.tvTypeLocation.text =
-                        getString(R.string.type_of) + when (response.data?.type) {
-                            "woman" -> getString(R.string.woman)
-                            "man" -> getString(R.string.man)
-                            else -> getString(R.string.strip)
-                        }
-
-                    // show image data
-                    val slidePhoto = ArrayList<SlideModel>()
-
-                    response.data?.photo?.forEach {
-                        slidePhoto.add(SlideModel(it))
-                    }
-                    detailBinding.imgLocation.setImageList(slidePhoto, ScaleTypes.CENTER_CROP)
+                    // show basic data to view
+                    showBasicData(response)
 
                     // show distance location
                     // gps coordinate and calculate the distance
-                    deviceCoordinate = Location("deviceLocation").apply {
-                        latitude = deviceLocationLatitude as Double
-                        longitude = deviceLocationLongitude as Double
-                    }
-                    val locationCoordinate = Location("targetLocation").apply {
-                        latitude = response.data?.coordinate?.latitude as Double
-                        longitude = response.data.coordinate?.longitude as Double
-                    }
-                    val distance = BigDecimal(
-                        deviceCoordinate?.distanceTo(locationCoordinate)?.div(1000)
-                            ?.toDouble() as Double
-                    ).setScale(2, RoundingMode.HALF_EVEN).toDouble()
-
-                    detailBinding.tvDistanceLocation.text =
-                        distance.toString() + getString(R.string.km)
-
-                    // show marker location data
-                    detailBinding.mapLocation.getMapAsync { googleMap ->
-                        // setup ui and camera position of map
-                        googleMap.run {
-                            mapType = GoogleMap.MAP_TYPE_NORMAL
-
-                            uiSettings.isCompassEnabled = true
-                            uiSettings.isZoomControlsEnabled = true
-
-                            animateCamera(
-                                CameraUpdateFactory.newCameraPosition(
-                                    CameraPosition.Builder()
-                                        .target(
-                                            LatLng(
-                                                response.data?.coordinate?.latitude as Double,
-                                                response.data.coordinate?.longitude as Double
-                                            )
-                                        )
-                                        .zoom(15f).build()
-                                )
-                            )
-
-                            val marker = MarkerOptions().position(
-                                LatLng(
-                                    response.data.coordinate?.latitude as Double,
-                                    response.data.coordinate?.longitude as Double
-                                )
-                            ).title(response.data.name).snippet(response.data.address)
-
-                            // setup custom marker icon
-                            marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_home_marker))
-
-                            // add marker on map
-                            addMarker(marker).tag = response.data.uid
-
-                            // enable marker click
-                            setOnMarkerClickListener { markerOnClick ->
-                                markerOnClick.showInfoWindow()
-                                false
-                            }
-
-                            // enable info window click
-                            setOnInfoWindowClickListener { infoWindow ->
-                                infoWindow.tag
-                                infoWindow.title
-                            }
-                        }
-                    }
+                    showDistanceLocation(response, response.data as LocationResponse)
 
                     // order button navigate to order activity
                     val orderActivityIntent = Intent(this, OrderActivity::class.java).apply {
-                        putExtra(UID, response.data?.uid)
-                        putExtra(LOCATION_NAME, response.data?.name)
-                        putExtra(LOCATION_ADDRESS, response.data?.address)
-                        putExtra(LOCATION_PHONE, response.data?.phone)
+                        putExtra(UID, response.data.uid)
+                        putExtra(LOCATION_NAME, response.data.name)
+                        putExtra(LOCATION_ADDRESS, response.data.address)
+                        putExtra(LOCATION_PHONE, response.data.phone)
                     }
                     detailBinding.btnOrder.setOnClickListener { startActivity(orderActivityIntent) }
                 }
             }
         })
+    }
+
+    // show basic data to view
+    @SuppressLint("SetTextI18n")
+    private fun showBasicData(response: ResponseState<LocationResponse>) {
+        // google place link
+        gPlaceUrl = response.data?.googlePlace
+
+        // show basic data
+        detailBinding.tvNameLocation.text = response.data?.name
+        detailBinding.tvAddressLocation.text = response.data?.address
+        detailBinding.tvPhoneLocation.text =
+            "${getString(R.string.phone)} : ${response.data?.phone}"
+        detailBinding.tvTypeLocation.text =
+            getString(R.string.type_of) + when (response.data?.type) {
+                "woman" -> getString(R.string.woman)
+                "man" -> getString(R.string.man)
+                else -> getString(R.string.call_admin_contact)
+            }
+
+        // show image data
+        val slidePhoto = ArrayList<SlideModel>()
+
+        response.data?.photo?.forEach {
+            slidePhoto.add(SlideModel(it))
+        }
+        detailBinding.imgLocation.setImageList(slidePhoto, ScaleTypes.CENTER_CROP)
+    }
+
+    // show distance location
+    // gps coordinate and calculate the distance
+    @SuppressLint("SetTextI18n")
+    private fun showDistanceLocation(
+        response: ResponseState<LocationResponse>,
+        data: LocationResponse
+    ) {
+        deviceCoordinate = Location("deviceLocation").apply {
+            latitude = deviceLocationLatitude as Double
+            longitude = deviceLocationLongitude as Double
+        }
+        val locationCoordinate = Location("targetLocation").apply {
+            latitude = response.data?.coordinate?.latitude as Double
+            longitude = data.coordinate?.longitude as Double
+        }
+        val distance = BigDecimal(
+            deviceCoordinate?.distanceTo(locationCoordinate)?.div(1000)
+                ?.toDouble() as Double
+        ).setScale(2, RoundingMode.HALF_EVEN).toDouble()
+
+        detailBinding.tvDistanceLocation.text =
+            getString(R.string.approximate_distance) + distance.toString() + getString(R.string.km)
+
+        // show marker location data
+        detailBinding.mapLocation.getMapAsync { googleMap ->
+            // setup ui and camera position of map
+            googleMap.run {
+                mapType = GoogleMap.MAP_TYPE_NORMAL
+
+                uiSettings.isCompassEnabled = true
+                uiSettings.isZoomControlsEnabled = true
+
+                animateCamera(
+                    CameraUpdateFactory.newCameraPosition(
+                        CameraPosition.Builder()
+                            .target(
+                                LatLng(
+                                    response.data?.coordinate?.latitude as Double,
+                                    data.coordinate?.longitude as Double
+                                )
+                            )
+                            .zoom(15f).build()
+                    )
+                )
+
+                val marker = MarkerOptions().position(
+                    LatLng(
+                        data.coordinate?.latitude as Double,
+                        data.coordinate?.longitude as Double
+                    )
+                ).title(data.name).snippet(data.address)
+
+                // setup custom marker icon
+                marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_home_marker))
+
+                // add marker on map
+                addMarker(marker).tag = data.uid
+
+                // enable marker click
+                setOnMarkerClickListener { markerOnClick ->
+                    markerOnClick.showInfoWindow()
+                    false
+                }
+
+                // enable info window click
+                setOnInfoWindowClickListener { infoWindow ->
+                    infoWindow.tag
+                    infoWindow.title
+                }
+            }
+        }
     }
 
     // handle success state of view

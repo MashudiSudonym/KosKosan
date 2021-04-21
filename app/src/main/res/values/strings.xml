@@ -79,4 +79,6 @@
     <string name="created_order_at">Created order at :</string>
     <string name="ordered_by">Ordered by :</string>
     <string name="order_boarding_house_at">Order a boarding house at :</string>
+    <string name="approximate_distance">Approximate distance from your location :</string>
+    <string name="call_admin_contact">Contact admin for details</string>
 </resources>

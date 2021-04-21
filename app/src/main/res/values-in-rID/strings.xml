@@ -75,7 +75,9 @@
     <string name="order_confirmation">Konfirmasi Pemesanan</string>
     <string name="user_name">Nama Pengguna</string>
     <string name="failed_load_photo_camera">Gagal mengambil foto dari kamera</string>
-    <string name="created_order_at">Order dibuat :</string>
+    <string name="created_order_at">"Order dibuat : "</string>
     <string name="ordered_by">"Dipesan oleh : "</string>
     <string name="order_boarding_house_at">"Memesan tempat kos di : "</string>
+    <string name="approximate_distance">"Perkiraan jarak dari lokasi anda : "</string>
+    <string name="call_admin_contact">Hubungi admin untuk detail.</string>
 </resources>
