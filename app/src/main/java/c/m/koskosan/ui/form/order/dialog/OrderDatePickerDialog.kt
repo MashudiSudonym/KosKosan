@@ -18,7 +18,6 @@ class OrderDatePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListen
 
     var flag: Int = 0
     private val orderViewModel by sharedViewModel<OrderViewModel>()
-    private var rentStartDate: Int = 0
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Use the current date as the default date in the picker
@@ -26,14 +25,6 @@ class OrderDatePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListen
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
-
-        // get rent start date value for setup rent stop date
-        orderViewModel.startRentDate.observe(this, { date ->
-            if (date != null) {
-                val stringLength = date.length
-                rentStartDate = date.removeRange(2, stringLength).toInt()
-            }
-        })
 
         // Create a new instance of DatePickerDialog and return it
         return DatePickerDialog(
@@ -43,7 +34,13 @@ class OrderDatePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListen
             month,
             dayOfMonth
         ).apply {
-            datePicker.minDate = calendar.time.time
+            // if edit text rent stop date selected, start date from rent start date value additional one
+            datePicker.minDate = if (flag == FLAG_STOP_RENT_DATE) {
+                calendar.add(Calendar.DATE, 1)
+                calendar.time.time
+            } else {
+                calendar.time.time
+            }
         }
     }
 
@@ -51,7 +48,7 @@ class OrderDatePickerDialog : DialogFragment(), DatePickerDialog.OnDateSetListen
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         val setCalendar = Calendar.getInstance()
         setCalendar.set(year, month, dayOfMonth)
-        val format = SimpleDateFormat("d-MMMM-yyyy")
+        val format = SimpleDateFormat("dd-MMMM-yyyy")
         val date = format.format(setCalendar.time)
 
         when (flag) {

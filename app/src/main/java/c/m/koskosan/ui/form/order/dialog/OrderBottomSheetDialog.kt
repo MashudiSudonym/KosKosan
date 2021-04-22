@@ -109,7 +109,7 @@ class OrderBottomSheetDialog : BottomSheetDialogFragment() {
         })
 
         // get stop rent date
-        orderViewModel.startRentDate.observe(viewLifecycleOwner, { result ->
+        orderViewModel.stopRentDate.observe(viewLifecycleOwner, { result ->
             stopRentDate = result
             binding.tvStopRentDate.text = stopRentDate
         })
