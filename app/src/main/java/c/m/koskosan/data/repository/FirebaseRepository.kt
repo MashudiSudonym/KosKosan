@@ -9,6 +9,7 @@ import c.m.koskosan.data.model.UserResponse
 import c.m.koskosan.vo.ResponseState
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -261,7 +262,8 @@ class FirebaseRepository {
         // show loading state
         orders.value = ResponseState.Loading(null)
 
-        orderCollection.whereEqualTo("userUID", uid).get()
+        orderCollection.whereEqualTo("userUID", uid)
+            .orderBy("orderCreated", Query.Direction.DESCENDING).get()
             .addOnSuccessListener { snapshot ->
                 val orderSnapshot = snapshot?.toObjects(OrderResponse::class.java)
 
