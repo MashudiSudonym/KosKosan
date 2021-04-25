@@ -16,5 +16,5 @@ class TransactionViewModel(
 
     // get user transaction order list
     fun getUserOrderByUid(): LiveData<ResponseState<List<OrderResponse>>> =
-        firebaseRepository.readOrderByUid(userUID.value.toString())
+        firebaseRepository.readOrderByUserUid(userUID.value.toString())
 }

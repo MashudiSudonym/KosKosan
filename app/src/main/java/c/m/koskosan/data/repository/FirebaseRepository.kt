@@ -255,8 +255,8 @@ class FirebaseRepository {
         return order
     }
 
-    // get user order by uid
-    fun readOrderByUid(uid: String): LiveData<ResponseState<List<OrderResponse>>> {
+    // get user order by user uid
+    fun readOrderByUserUid(uid: String): LiveData<ResponseState<List<OrderResponse>>> {
         val orders: MutableLiveData<ResponseState<List<OrderResponse>>> = MutableLiveData()
 
         // show loading state
@@ -269,6 +269,36 @@ class FirebaseRepository {
 
                 // success state
                 orders.value = ResponseState.Success(orderSnapshot)
+            }
+            .addOnFailureListener { exception ->
+                // error state
+                orders.value = ResponseState.Error(exception.localizedMessage, null)
+            }
+
+        return orders
+    }
+
+    // get user order details by order uid
+    fun readOrderDetailByOrderUid(uid: String): LiveData<ResponseState<OrderResponse>> {
+        val orders: MutableLiveData<ResponseState<OrderResponse>> = MutableLiveData()
+
+        // show loading state
+        orders.value = ResponseState.Loading(null)
+
+        orderCollection.whereEqualTo("uid", uid).get()
+            .addOnSuccessListener { snapshot ->
+                val orderSnapshot = snapshot?.toObjects(OrderResponse::class.java)
+
+                // success state
+                if (orderSnapshot != null) {
+                    orderSnapshot.forEach { data ->
+                        // success state
+                        orders.value = ResponseState.Success(data)
+                    }
+                } else {
+                    // error state
+                    orders.value = ResponseState.Error("No data", null)
+                }
             }
             .addOnFailureListener { exception ->
                 // error state

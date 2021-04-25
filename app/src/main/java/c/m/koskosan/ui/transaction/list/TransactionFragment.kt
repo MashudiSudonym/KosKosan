@@ -1,5 +1,6 @@
 package c.m.koskosan.ui.transaction.list
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import c.m.koskosan.R
 import c.m.koskosan.databinding.FragmentTransactionBinding
+import c.m.koskosan.ui.transaction.detail.DetailTransactionActivity
+import c.m.koskosan.util.Constants
 import c.m.koskosan.util.gone
 import c.m.koskosan.util.invisible
-import c.m.koskosan.util.snackBarBasicShort
 import c.m.koskosan.util.visible
 import c.m.koskosan.vo.ResponseState
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -45,7 +47,12 @@ class TransactionFragment : Fragment() {
 
         // initialize recyclerview adapter
         transactionAdapter = TransactionAdapter { orderResponse ->
-            layout.snackBarBasicShort(orderResponse.userName.toString())
+            val detailTransactionActivityIntent =
+                Intent(requireActivity(), DetailTransactionActivity::class.java).apply {
+                    putExtra(Constants.UID, orderResponse.uid)
+                }
+
+            startActivity(detailTransactionActivityIntent)
         }
 
         // initialize get transaction data

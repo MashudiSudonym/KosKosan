@@ -81,4 +81,9 @@
     <string name="order_boarding_house_at">Order a boarding house at :</string>
     <string name="approximate_distance">Approximate distance from your location :</string>
     <string name="call_admin_contact">Contact admin for details</string>
+    <string name="detail_transaction_title">Detail Transaction</string>
+    <string name="order_status">"Order Status : "</string>
+    <string name="customer_data">Customer Data :</string>
+    <string name="location_data">"Location Data : "</string>
+    <string name="long_text" translatable="false">you must be to go left behind and other right not left another zero if not going to anywhere to be everywere you must be to go left behind and other right not left another zero if not going to anywhere to be everywere you must be to go left behind and other right not left another zero if not going to anywhere to be everywere you must be to go left behind and other right not left another zero if not going to anywhere to be everywere</string>
 </resources>

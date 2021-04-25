@@ -17,5 +17,9 @@ class Constants {
         const val LOCATION_NAME = "location name"
         const val LOCATION_ADDRESS = "location address"
         const val LOCATION_PHONE = "location phone"
+        const val WAITING_STATUS = 0
+        const val SURVEY_STATUS = 1
+        const val ACCEPT_STATUS = 2
+        const val CANCEL_STATUS = 3
     }
 }

@@ -16,6 +16,7 @@ import c.m.koskosan.ui.maps.MapsViewModel
 import c.m.koskosan.ui.profile.ProfileViewModel
 import c.m.koskosan.ui.search.SearchViewModel
 import c.m.koskosan.ui.splash.SplashscreenViewModel
+import c.m.koskosan.ui.transaction.detail.DetailTransactionViewModel
 import c.m.koskosan.ui.transaction.list.TransactionViewModel
 import c.m.koskosan.util.ContextProviders
 import org.koin.android.ext.koin.androidApplication
@@ -38,6 +39,7 @@ val viewModelModule: Module = module {
     viewModel { TransactionViewModel(get(), get()) }
     viewModel { SearchViewModel(get(), get(), get()) }
     viewModel { OrderViewModel(get(), get()) }
+    viewModel { DetailTransactionViewModel(get()) }
 }
 
 val databaseModule: Module = module {

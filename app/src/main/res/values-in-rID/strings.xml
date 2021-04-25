@@ -80,4 +80,8 @@
     <string name="order_boarding_house_at">"Memesan tempat kos di : "</string>
     <string name="approximate_distance">"Perkiraan jarak dari lokasi anda : "</string>
     <string name="call_admin_contact">Hubungi admin untuk detail.</string>
+    <string name="detail_transaction_title">Detil Transaksi</string>
+    <string name="order_status">"Status Pesanan : "</string>
+    <string name="customer_data">"Data Pemesan : "</string>
+    <string name="location_data">"Data Lokasi : "</string>
 </resources>
