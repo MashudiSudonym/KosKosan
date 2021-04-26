@@ -1,7 +1,11 @@
 package c.m.koskosan.util
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 
 /**
@@ -59,4 +63,12 @@ fun View.snackBarBasicIndefinite(
     title: String
 ) {
     Snackbar.make(this, title, Snackbar.LENGTH_INDEFINITE).show()
+}
+
+fun sendMessageWhatsApp(packageContext: Context, uriWhatsApp: String) {
+    val whatsAppIntent = Intent(Intent.ACTION_VIEW).apply {
+        data = Uri.parse(uriWhatsApp)
+    }
+
+    packageContext.startActivity(whatsAppIntent)
 }

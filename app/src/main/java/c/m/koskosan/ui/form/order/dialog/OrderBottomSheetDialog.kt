@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import c.m.koskosan.databinding.FragmentBottomSheetOrderConfirmationBinding
 import c.m.koskosan.ui.form.order.OrderViewModel
 import c.m.koskosan.util.gone
+import c.m.koskosan.util.sendMessageWhatsApp
 import c.m.koskosan.util.visible
 import c.m.koskosan.vo.ResponseState
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -138,7 +139,6 @@ class OrderBottomSheetDialog : BottomSheetDialogFragment() {
                         requireActivity().onBackPressed()
                     }
                 }
-
             })
         }
 

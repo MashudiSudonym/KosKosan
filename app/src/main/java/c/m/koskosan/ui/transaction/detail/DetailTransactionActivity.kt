@@ -5,14 +5,11 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import c.m.koskosan.R
 import c.m.koskosan.databinding.ActivityDetailTransactionBinding
-import c.m.koskosan.util.Constants
+import c.m.koskosan.util.*
 import c.m.koskosan.util.Constants.Companion.ACCEPT_STATUS
 import c.m.koskosan.util.Constants.Companion.CANCEL_STATUS
 import c.m.koskosan.util.Constants.Companion.SURVEY_STATUS
 import c.m.koskosan.util.Constants.Companion.WAITING_STATUS
-import c.m.koskosan.util.gone
-import c.m.koskosan.util.invisible
-import c.m.koskosan.util.visible
 import c.m.koskosan.vo.ResponseState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -88,6 +85,15 @@ class DetailTransactionActivity : AppCompatActivity() {
                             tvNameLocationTransaction.text = data?.nameLocation
                             tvAddressLocationTransaction.text = data?.addressLocation
                             tvPhoneLocationTransaction.text = data?.phoneLocation
+
+                            // contact admin button
+                            btnCall.setOnClickListener {
+                                sendMessageWhatsApp(
+                                    this@DetailTransactionActivity,
+                                    "whatsapp://api.whatsapp.com/send?phone=${data?.phoneLocation?.replace("+", "")}&text=Halo ${data?.nameLocation},saya ingin tanya tentang kos." +
+                                            "\nAtas nama : ${data?.userName}"
+                                )
+                            }
                         }
                     }
                 }
