@@ -47,7 +47,6 @@ class HomeAdapter(private val onClick: (LocationDistanceResponse) -> Unit) :
 
             // add data to widget view
             Glide.with(photoLayout).load(currentLocation?.photo?.first())
-                .circleCrop()
                 .placeholder(R.drawable.ic_icon)
                 .error(R.drawable.ic_broken_image)
                 .into(photoLayout)

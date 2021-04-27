@@ -31,10 +31,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.constraintlayout.motion.widget.MotionLayout
                 android:id="@+id/profile_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layoutDescription="@xml/fragment_profile_xml_profile_layout_scene"
                 tools:context=".ui.profile.ProfileFragment">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -44,93 +45,117 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="64dp"
                     android:layout_marginEnd="16dp"
+                    android:elevation="10dp"
                     android:src="@drawable/ic_baseline_person_pin"
-                    app:civ_border_color="@color/colorPrimary"
+                    app:civ_border_color="@color/application_color"
                     app:civ_border_width="2dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="16dp"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:singleLine="true"
-                    android:text="@string/full_name"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/img_profile" />
-
-                <TextView
-                    android:id="@+id/tv_email"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="16dp"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/poppins_medium"
-                    android:singleLine="true"
-                    android:text="@string/email"
-                    android:textAlignment="center"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_name" />
-
-                <TextView
-                    android:id="@+id/tv_address"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="64dp"
-                    android:layout_marginTop="64dp"
-                    android:layout_marginEnd="64dp"
-                    android:fontFamily="@font/poppins"
-                    android:text="@string/address"
-                    android:textAlignment="viewStart"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_email" />
-
-                <TextView
-                    android:id="@+id/tv_phone"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="64dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="64dp"
-                    android:fontFamily="@font/poppins"
-                    android:text="@string/phone"
-                    android:textAlignment="viewStart"
-                    android:textIsSelectable="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_address" />
-
-                <Button
-                    android:id="@+id/btn_info_application"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="128dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/poppins_light"
-                    android:text="@string/about"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="550dp"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginTop="150dp"
+                    android:layout_marginEnd="45dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardCornerRadius="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_phone" />
+                    app:layout_constraintTop_toTopOf="parent">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="150dp"
+                            android:layout_marginEnd="16dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:singleLine="true"
+                            android:text="@string/full_name"
+                            android:textAlignment="center"
+                            android:textSize="24sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_email"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="24dp"
+                            android:layout_marginEnd="16dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/poppins_medium"
+                            android:singleLine="true"
+                            android:text="@string/email"
+                            android:textAlignment="center"
+                            android:textSize="18sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+                        <TextView
+                            android:id="@+id/tv_address"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="64dp"
+                            android:layout_marginTop="64dp"
+                            android:layout_marginEnd="64dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="@string/address"
+                            android:textAlignment="viewStart"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_email" />
+
+                        <TextView
+                            android:id="@+id/tv_phone"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="64dp"
+                            android:layout_marginTop="24dp"
+                            android:layout_marginEnd="64dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="@string/phone"
+                            android:textAlignment="viewStart"
+                            android:textIsSelectable="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_address" />
+
+                        <Button
+                            android:id="@+id/btn_info_application"
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="24dp"
+                            android:layout_marginBottom="16dp"
+                            android:fontFamily="@font/poppins_light"
+                            android:text="@string/about"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_phone"
+                            app:layout_constraintVertical_bias="1.0" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.motion.widget.MotionLayout>
         </ScrollView>
 
 
