@@ -145,6 +145,14 @@ class UpdateUserProfileActivity : AppCompatActivity() {
 
         // Form Validator
         formValidation()
+
+        // swipe to refresh data
+        updateUserProfileBinding.updateUserProfileSwipeRefreshView.setOnRefreshListener {
+            updateUserProfileBinding.updateUserProfileSwipeRefreshView.isRefreshing = false
+
+            // get data
+            initializeFieldValueOfUserProfileData()
+        }
     }
 
     // Validate form on this activity
