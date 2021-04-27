@@ -77,11 +77,7 @@ class UpdateUserProfileActivity : AppCompatActivity() {
                     inPurgeable = true
                 }
                 BitmapFactory.decodeFile(currentPhotoPath, bmOptions)?.also { bitmap ->
-
-                    Glide.with(this).load(bitmap).apply(
-                        RequestOptions().centerCrop().placeholder(R.drawable.ic_baseline_person_pin)
-                            .error(R.drawable.ic_broken_image)
-                    ).into(updateUserProfileBinding.imgProfile)
+                    updateUserProfileBinding.imgProfile.setImageBitmap(bitmap)
                 }
             } else {
                 layout.snackBarWarningLong(getString(R.string.data_error_null))
@@ -109,10 +105,7 @@ class UpdateUserProfileActivity : AppCompatActivity() {
                             MediaStore.Images.Media.getBitmap(this.contentResolver, photoPathURI)
                         }
 
-                    Glide.with(this).load(bitmap).apply(
-                        RequestOptions().centerCrop().placeholder(R.drawable.ic_baseline_person_pin)
-                            .error(R.drawable.ic_broken_image)
-                    ).into(updateUserProfileBinding.imgProfile)
+                    updateUserProfileBinding.imgProfile.setImageBitmap(bitmap)
                 }
             } else {
                 layout.snackBarWarningLong(getString(R.string.data_error_null))
