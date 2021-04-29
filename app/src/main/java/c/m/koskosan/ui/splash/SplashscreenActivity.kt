@@ -10,9 +10,7 @@ import c.m.koskosan.databinding.ActivitySplashscreenBinding
 import c.m.koskosan.ui.login.LoginActivity
 import c.m.koskosan.ui.main.MainActivity
 import c.m.koskosan.util.Constants
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashscreenActivity : AppCompatActivity() {
@@ -35,7 +33,7 @@ class SplashscreenActivity : AppCompatActivity() {
                 val loginActivityIntent = Intent(this, LoginActivity::class.java)
 
                 // Using Kotlin Coroutine for create the delay
-                GlobalScope.launch {
+                CoroutineScope(Dispatchers.Main).launch {
                     delay(2000L)
                     // if user authentication it's false open Login Activity
                     // else open Main Activity
