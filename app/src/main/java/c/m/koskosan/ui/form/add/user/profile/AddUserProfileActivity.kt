@@ -262,7 +262,7 @@ class AddUserProfileActivity : AppCompatActivity(),
     private fun showCamera() {
         if (checkSelfPermissionCompat(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             layout.snackBarBasicShort(
-                getString(R.string.alert_camera_permission_availabel)
+                getString(R.string.alert_camera_permission_available)
             )
             startCamera()
         } else {

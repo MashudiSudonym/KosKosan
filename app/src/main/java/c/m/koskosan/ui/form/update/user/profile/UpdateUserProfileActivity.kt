@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
@@ -25,7 +24,6 @@ import c.m.koskosan.ui.main.MainActivity
 import c.m.koskosan.util.*
 import c.m.koskosan.vo.ResponseState
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import id.rizmaulana.sheenvalidator.lib.SheenValidator
@@ -34,9 +32,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -353,7 +349,7 @@ class UpdateUserProfileActivity : AppCompatActivity() {
     private fun showCamera() {
         if (checkSelfPermissionCompat(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             layout.snackBarBasicShort(
-                getString(R.string.alert_camera_permission_availabel)
+                getString(R.string.alert_camera_permission_available)
             )
             startCamera()
         } else {

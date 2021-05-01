@@ -7,9 +7,9 @@
     <string name="welcome">"Welcome!"</string>
     <string name="alert_login_cancel">Login cancel!</string>
     <string name="alert_check_internet_connection">Check Internet Connection!</string>
-    <string name="defailt_code_country" translatable="false">ID</string>
+    <string name="default_code_country" translatable="false">ID</string>
     <string name="alert_camera_permission_denied">Camera Permission Denied!</string>
-    <string name="alert_camera_permission_availabel">Camera Permission Available</string>
+    <string name="alert_camera_permission_available">Camera Permission Available</string>
     <string name="ok">OK</string>
     <string name="no">No</string>
     <string name="cancel">Cancel</string>
@@ -34,7 +34,7 @@
     <string name="uploading_process">Uploading Process %2$d %%</string>
     <string name="data_error_null">Something wrong!, it\'s null</string>
     <string name="profile">Profile</string>
-    <string name="image_requirement_size_desctiption">We strongly recommend using images taken from the gallery and measuring less than 300 Mb.</string>
+    <string name="image_requirement_size_description">We strongly recommend using images taken from the gallery and measuring less than 300 Mb.</string>
     <string name="about">About this app</string>
     <string name="about_description">KosKosan is an application to help find the location of the nearest boarding house from your location point.</string>
     <string name="edit_profile">Edit Profile</string>
@@ -85,5 +85,5 @@
     <string name="order_status">"Order Status : "</string>
     <string name="customer_data">Customer Data :</string>
     <string name="location_data">"Location Data : "</string>
-    <string name="long_text" translatable="false">you must be to go left behind and other right not left another zero if not going to anywhere to be everywere you must be to go left behind and other right not left another zero if not going to anywhere to be everywere you must be to go left behind and other right not left another zero if not going to anywhere to be everywere you must be to go left behind and other right not left another zero if not going to anywhere to be everywere</string>
+    <string name="long_text" translatable="false">you must be to go left behind and other right not left another zero if not going to anywhere to be good you must be to go left behind and other right not left another zero if not going to anywhere to be good you must be to go left behind and other right not left another zero if not going to anywhere to be good you must be to go left behind and other right not left another zero if not going to anywhere to be good</string>
 </resources>

@@ -9,7 +9,7 @@
     <string name="alert_camera_permission_denied">Akses Ijin Kamera Ditolak!</string>
     <string name="title_home">Beranda</string>
     <string name="title_notifications">Notifikasi</string>
-    <string name="alert_camera_permission_availabel">Ijin Kamera Tersedia</string>
+    <string name="alert_camera_permission_available">Ijin Kamera Tersedia</string>
     <string name="ok">Oke</string>
     <string name="no">Tidak</string>
     <string name="cancel">Batal</string>
@@ -34,7 +34,7 @@
     <string name="uploading_process">Proses mengunggah %2$d %%</string>
     <string name="profile">Profil</string>
     <string name="data_error_null">Ada yang salah!!, ini null</string>
-    <string name="image_requirement_size_desctiption">Kami sangat menyarankan menggunakan gambar yang diambil dari galeri dan berukuran kurang dari 300 Mb.</string>
+    <string name="image_requirement_size_description">Kami sangat menyarankan menggunakan gambar yang diambil dari galeri dan berukuran kurang dari 300 Mb.</string>
     <string name="about">Tentang aplikasi ini</string>
     <string name="about_description">KosKosan merupakan aplikasi untuk membantu mencari lokasi kos terdekat dari titik lokasi anda.</string>
     <string name="edit_profile">Edit Profil</string>

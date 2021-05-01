@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import c.m.koskosan.R
 import c.m.koskosan.databinding.ActivityLoginBinding
 import c.m.koskosan.ui.main.MainActivity
-import c.m.koskosan.util.Constants
 import c.m.koskosan.util.requestPermission
 import c.m.koskosan.util.snackBarWarningLong
 import com.firebase.ui.auth.AuthUI
@@ -73,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
                     .setAvailableProviders(
                         listOf(
                             AuthUI.IdpConfig.PhoneBuilder()
-                                .setDefaultCountryIso(getString(R.string.defailt_code_country))
+                                .setDefaultCountryIso(getString(R.string.default_code_country))
                                 .build()
                         )
                     ).build()
