@@ -118,7 +118,6 @@ class SearchFragment : Fragment() {
 
                                         // add search result to recyclerview
                                         searchAdapter.submitList(response.data)
-
                                         binding.rvSearchLocation.adapter = searchAdapter
                                         binding.rvSearchLocation.setHasFixedSize(true)
                                     }

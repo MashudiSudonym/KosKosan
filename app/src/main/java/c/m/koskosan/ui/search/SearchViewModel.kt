@@ -10,8 +10,8 @@ import c.m.koskosan.data.repository.ApplicationRepository
 import c.m.koskosan.data.repository.FirebaseRepository
 import c.m.koskosan.data.repository.LocalRepository
 import c.m.koskosan.vo.ResponseState
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class SearchViewModel(
@@ -24,19 +24,19 @@ class SearchViewModel(
         firebaseRepository.readLocationData()
 
     fun saveAllLocation(locationEntity: ArrayList<LocationEntity>) {
-        GlobalScope.launch(Dispatchers.IO) {
+        CoroutineScope(Dispatchers.IO).launch {
             localRepository.updateContent(locationEntity)
         }
     }
 
     // with underscore sign, this variable must be private for this class
-    private val _searchKeyword: MutableLiveData<String> = MutableLiveData()
+    private val _searchKeywordInput: MutableLiveData<String> = MutableLiveData()
     val searchContent: LiveData<ResponseState<List<LocationEntity>>> =
-        Transformations.switchMap(_searchKeyword) { keyword ->
+        Transformations.switchMap(_searchKeywordInput) { keyword ->
             applicationRepository.searchContent(keyword)
         }
 
-    fun getSearchKeyword(searchKeyword: String) {
-        _searchKeyword.value = searchKeyword
+    fun getSearchKeyword(searchKeywordInput: String) {
+        _searchKeywordInput.value = searchKeywordInput
     }
 }

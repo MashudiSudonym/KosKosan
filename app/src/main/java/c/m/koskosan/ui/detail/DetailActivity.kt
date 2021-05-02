@@ -101,7 +101,8 @@ class DetailActivity : AppCompatActivity() {
 
     // initialize get detail data
     private fun initializeGetLocationDataByUid() {
-        detailViewModel.getLocationByUid(uid.toString()).observe(this, { response ->
+        detailViewModel.setUIDInput(uid.toString())
+        detailViewModel.getLocationByUid().observe(this, { response ->
             if (response != null) when (response) {
                 is ResponseState.Error -> showErrorStateView() // error state
                 is ResponseState.Loading -> showLoadingStateView() // loading state
