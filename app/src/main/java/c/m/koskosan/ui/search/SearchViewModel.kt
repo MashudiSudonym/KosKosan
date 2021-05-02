@@ -21,7 +21,7 @@ class SearchViewModel(
 ) : ViewModel() {
     // get firestore data and save to local db
     fun getAllLocation(): LiveData<ResponseState<List<LocationResponse>>> =
-        firebaseRepository.readLocationData()
+        firebaseRepository.readAllLocations()
 
     fun saveAllLocation(locationEntity: ArrayList<LocationEntity>) {
         CoroutineScope(Dispatchers.IO).launch {

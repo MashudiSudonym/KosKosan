@@ -9,5 +9,5 @@ import c.m.koskosan.vo.ResponseState
 class HomeViewModel(private val firebaseRepository: FirebaseRepository) : ViewModel() {
     // get all location data
     fun getLocations(): LiveData<ResponseState<List<LocationResponse>>> =
-        firebaseRepository.readLocationData()
+        firebaseRepository.readAllLocations()
 }

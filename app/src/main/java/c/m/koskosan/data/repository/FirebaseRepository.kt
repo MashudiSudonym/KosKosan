@@ -157,8 +157,8 @@ class FirebaseRepository {
         return userProfileData
     }
 
-    // get all location
-    fun readLocationData(): LiveData<ResponseState<List<LocationResponse>>> {
+    // get all locations
+    fun readAllLocations(): LiveData<ResponseState<List<LocationResponse>>> {
         val locations: MutableLiveData<ResponseState<List<LocationResponse>>> = MutableLiveData()
 
         // loading state
@@ -178,7 +178,7 @@ class FirebaseRepository {
     }
 
     // get location by uid
-    fun readLocationByUid(uid: String): LiveData<ResponseState<LocationResponse>> {
+    fun readLocationDetailByUid(uid: String): LiveData<ResponseState<LocationResponse>> {
         val location: MutableLiveData<ResponseState<LocationResponse>> = MutableLiveData()
 
         // Loading state

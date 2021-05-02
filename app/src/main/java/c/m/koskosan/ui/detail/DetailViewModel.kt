@@ -8,12 +8,12 @@ import c.m.koskosan.vo.ResponseState
 
 class DetailViewModel(private val firebaseRepository: FirebaseRepository) : ViewModel() {
     // get location detail by uid
-    lateinit var uidInput: String
+    private lateinit var _locationUidInput: String
 
-    fun setUIDInput(uid: String) {
-        this.uidInput = uid
+    fun setLocationUid(locationUid: String) {
+        this._locationUidInput = locationUid
     }
 
-    fun getLocationByUid(): LiveData<ResponseState<LocationResponse>> =
-        firebaseRepository.readLocationByUid(uidInput)
+    fun getLocationDetailByUid(): LiveData<ResponseState<LocationResponse>> =
+        firebaseRepository.readLocationDetailByUid(_locationUidInput)
 }
