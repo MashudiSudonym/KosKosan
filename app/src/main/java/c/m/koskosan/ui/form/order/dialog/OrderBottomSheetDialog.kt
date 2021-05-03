@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import c.m.koskosan.databinding.FragmentBottomSheetOrderConfirmationBinding
 import c.m.koskosan.ui.form.order.OrderViewModel
 import c.m.koskosan.util.gone
-import c.m.koskosan.util.sendMessageWhatsApp
 import c.m.koskosan.util.visible
 import c.m.koskosan.vo.ResponseState
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -117,20 +116,14 @@ class OrderBottomSheetDialog : BottomSheetDialogFragment() {
 
         // send order button to database
         binding.btnAcceptOrder.setOnClickListener {
-            orderViewModel.postOrder(
+            orderViewModel.setUserOrderData(
                 userName.toString(),
                 userAddress.toString(),
                 userPhone.toString(),
-                locationName.toString(),
-                locationUID.toString(),
-                locationAddress.toString(),
-                locationPhone.toString(),
                 orderCreated.toString(),
                 0,
-                surveyScheduleDate.toString(),
-                startRentDate.toString(),
-                stopRentDate.toString(),
-            ).observe(viewLifecycleOwner, { response ->
+            )
+            orderViewModel.postOrder().observe(viewLifecycleOwner, { response ->
                 if (response != null) when (response) {
                     is ResponseState.Error -> showErrorStateView()
                     is ResponseState.Loading -> showLoadingStateView()

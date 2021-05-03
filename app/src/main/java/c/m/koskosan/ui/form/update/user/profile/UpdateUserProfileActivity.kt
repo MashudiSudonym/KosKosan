@@ -164,13 +164,14 @@ class UpdateUserProfileActivity : AppCompatActivity() {
 
     // Posting update of user profile data to database
     private fun putUserProfileData() {
-        updateUserProfileViewModel.putUserProfileData(
+        updateUserProfileViewModel.setUserProfileDataInput(
             updateUserProfileBinding.edtName.text.toString(),
             photoPathURI,
             updateUserProfileBinding.edtPhone.text.toString(),
             updateUserProfileBinding.edtAddress.text.toString(),
             updateUserProfileBinding.edtEmail.text.toString()
-        ).observe(this, { response ->
+        )
+        updateUserProfileViewModel.putUserProfileData().observe(this, { response ->
             if (response != null) when (response) {
                 is ResponseState.Error -> {
                     response.message?.let {

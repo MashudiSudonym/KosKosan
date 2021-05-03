@@ -8,6 +8,12 @@ import c.m.koskosan.vo.ResponseState
 
 class DetailTransactionViewModel(private val firebaseRepository: FirebaseRepository) : ViewModel() {
     // get detail user order detail by order uid
-    fun getOrderDetailByOrderUid(uid: String): LiveData<ResponseState<OrderResponse>> =
-        firebaseRepository.readOrderDetailByOrderUid(uid)
+    private lateinit var _orderUidInput: String
+
+    fun setOrderUid(orderUid: String) {
+        this._orderUidInput = orderUid
+    }
+
+    fun getOrderDetailByOrderUid(): LiveData<ResponseState<OrderResponse>> =
+        firebaseRepository.readOrderDetailByOrderUid(_orderUidInput)
 }

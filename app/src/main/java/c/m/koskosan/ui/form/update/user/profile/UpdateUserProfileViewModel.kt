@@ -8,8 +8,8 @@ import c.m.koskosan.data.repository.AuthRepository
 import c.m.koskosan.data.repository.FirebaseRepository
 import c.m.koskosan.vo.ResponseState
 
-class UpdateUserProfileViewModel(
-    private val authRepository: AuthRepository,
+class UpdateUserProfileViewModel (
+    authRepository: AuthRepository,
     private val firebaseRepository: FirebaseRepository
 ) : ViewModel() {
     // Get user uid
@@ -20,23 +20,42 @@ class UpdateUserProfileViewModel(
         firebaseRepository.readUserProfileData(userUID.value.toString())
 
     // put user profile data
-    fun putUserProfileData(
+    private lateinit var _nameInput: String
+    private var _imageProfilePathInput: Uri? = null
+    private lateinit var _phoneNumberInput: String
+    private lateinit var _addressInput: String
+    private lateinit var _emailInput: String
+
+    fun setUserProfileDataInput(
         name: String,
         imageProfilePath: Uri?,
         phoneNumber: String,
         address: String,
-        email: String,
-    ): LiveData<ResponseState<Double>> {
-        return if (imageProfilePath == null) {
-            firebaseRepository.updateUserProfileData(userUID.value.toString(), name, address, email)
+        email: String
+    ) {
+        this._nameInput = name
+        this._imageProfilePathInput = imageProfilePath
+        this._phoneNumberInput = phoneNumber
+        this._addressInput = address
+        this._emailInput = email
+    }
+
+    fun putUserProfileData(): LiveData<ResponseState<Double>> {
+        return if (_imageProfilePathInput == null) {
+            firebaseRepository.updateUserProfileData(
+                userUID.value.toString(),
+                _nameInput,
+                _addressInput,
+                _emailInput
+            )
         } else {
             firebaseRepository.createUserProfileData(
                 userUID.value.toString(),
-                name,
-                imageProfilePath,
-                phoneNumber,
-                address,
-                email
+                _nameInput,
+                _imageProfilePathInput,
+                _phoneNumberInput,
+                _addressInput,
+                _emailInput
             )
         }
     }

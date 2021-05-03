@@ -10,7 +10,7 @@ import c.m.koskosan.data.repository.FirebaseRepository
 import c.m.koskosan.vo.ResponseState
 
 class OrderViewModel(
-    private val authRepository: AuthRepository,
+    authRepository: AuthRepository,
     private val firebaseRepository: FirebaseRepository
 ) : ViewModel() {
     // Get User active uid
@@ -20,89 +20,96 @@ class OrderViewModel(
     fun getUserProfile(): LiveData<ResponseState<UserResponse>> =
         firebaseRepository.readUserProfileData(userUID.value.toString())
 
-    // Post user order data
-    fun postOrder(
-        userName: String,
-        userAddress: String,
-        userPhone: String,
-        nameLocation: String,
-        uidLocation: String,
-        addressLocation: String,
-        phoneLocation: String,
-        orderCreated: String,
-        orderStatus: Int,
-        surveySchedule: String,
-        rentStart: String,
-        rentStop: String
-    ): LiveData<ResponseState<OrderResponse>> = firebaseRepository.createOrderData(
-        userUID.value.toString(),
-        userName,
-        userAddress,
-        userPhone,
-        nameLocation,
-        uidLocation,
-        addressLocation,
-        phoneLocation,
-        orderCreated,
-        orderStatus,
-        surveySchedule,
-        rentStart,
-        rentStop
-    )
-
     // location UID
-    private val mutableLocationUID = MutableLiveData<String>()
-    val locationUID: LiveData<String> get() = mutableLocationUID
+    private val _mutableLocationUID = MutableLiveData<String>()
+    val locationUID: LiveData<String> get() = _mutableLocationUID
 
     fun setLocationUID(locationUID: String) {
-        mutableLocationUID.value = locationUID
+        _mutableLocationUID.value = locationUID
     }
 
     // location name
-    private val mutableLocationName = MutableLiveData<String>()
-    val locationName: LiveData<String> get() = mutableLocationName
+    private val _mutableLocationName = MutableLiveData<String>()
+    val locationName: LiveData<String> get() = _mutableLocationName
 
     fun setLocationName(locationName: String) {
-        mutableLocationName.value = locationName
+        _mutableLocationName.value = locationName
     }
 
     // location address
-    private val mutableLocationAddress = MutableLiveData<String>()
-    val locationAddress: LiveData<String> get() = mutableLocationAddress
+    private val _mutableLocationAddress = MutableLiveData<String>()
+    val locationAddress: LiveData<String> get() = _mutableLocationAddress
 
     fun setLocationAddress(locationAddress: String) {
-        mutableLocationAddress.value = locationAddress
+        _mutableLocationAddress.value = locationAddress
     }
 
     // location phone
-    private val mutableLocationPhone = MutableLiveData<String>()
-    val locationPhone: LiveData<String> get() = mutableLocationPhone
+    private val _mutableLocationPhone = MutableLiveData<String>()
+    val locationPhone: LiveData<String> get() = _mutableLocationPhone
 
     fun setLocationPhone(locationPhone: String) {
-        mutableLocationPhone.value = locationPhone
+        _mutableLocationPhone.value = locationPhone
     }
 
     // survey schedule date
-    private val mutableSurveyScheduleDate = MutableLiveData<String>()
-    val surveyScheduleDate: LiveData<String> get() = mutableSurveyScheduleDate
+    private val _mutableSurveyScheduleDate = MutableLiveData<String>()
+    val surveyScheduleDate: LiveData<String> get() = _mutableSurveyScheduleDate
 
     fun selectedSurveyScheduleDate(date: String) {
-        mutableSurveyScheduleDate.value = date
+        _mutableSurveyScheduleDate.value = date
     }
 
     // start rent date
-    private val mutableStartRentDate = MutableLiveData<String>()
-    val startRentDate: LiveData<String> get() = mutableStartRentDate
+    private val _mutableStartRentDate = MutableLiveData<String>()
+    val startRentDate: LiveData<String> get() = _mutableStartRentDate
 
     fun selectedStartRentDate(date: String) {
-        mutableStartRentDate.value = date
+        _mutableStartRentDate.value = date
     }
 
     // stop rent date
-    private val mutableStopRentDate = MutableLiveData<String>()
-    val stopRentDate: LiveData<String> get() = mutableStopRentDate
+    private val _mutableStopRentDate = MutableLiveData<String>()
+    val stopRentDate: LiveData<String> get() = _mutableStopRentDate
 
     fun selectedStopRentDate(date: String) {
-        mutableStopRentDate.value = date
+        _mutableStopRentDate.value = date
     }
+
+    // Post user order data
+    private lateinit var _userNameInput: String
+    private lateinit var _userAddressInput: String
+    private lateinit var _userPhoneInput: String
+    private lateinit var _orderCreatedInput: String
+    private var _orderStatusInput: Int = 0
+
+    fun setUserOrderData(
+        userName: String,
+        userAddress: String,
+        userPhone: String,
+        orderCreated: String,
+        orderStatus: Int,
+    ) {
+        this._userNameInput = userName
+        this._userAddressInput = userAddress
+        this._userPhoneInput = userPhone
+        this._orderCreatedInput = orderCreated
+        this._orderStatusInput = orderStatus
+    }
+
+    fun postOrder(): LiveData<ResponseState<OrderResponse>> = firebaseRepository.createOrderData(
+        userUID.value.toString(),
+        _userNameInput,
+        _userAddressInput,
+        _userPhoneInput,
+        _mutableLocationName.value.toString(),
+        _mutableLocationUID.value.toString(),
+        _mutableLocationAddress.value.toString(),
+        _mutableLocationPhone.value.toString(),
+        _orderCreatedInput,
+        _orderStatusInput,
+        _mutableSurveyScheduleDate.value.toString(),
+        _mutableStartRentDate.value.toString(),
+        _mutableStopRentDate.value.toString()
+    )
 }

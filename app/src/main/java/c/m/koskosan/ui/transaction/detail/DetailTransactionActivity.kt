@@ -55,7 +55,8 @@ class DetailTransactionActivity : AppCompatActivity() {
 
     // initialize get detail transaction
     private fun initializeGetDetailTransactionByOrderUid() {
-        detailTransactionViewModel.getOrderDetailByOrderUid(uid.toString())
+        detailTransactionViewModel.setOrderUid(uid.toString())
+        detailTransactionViewModel.getOrderDetailByOrderUid()
             .observe(this, { response ->
                 if (response != null) when (response) {
                     is ResponseState.Error -> showErrorStateView() // error state

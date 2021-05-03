@@ -169,13 +169,14 @@ class AddUserProfileActivity : AppCompatActivity(),
 
     // Posting user profile data to database
     private fun postUserProfileData() {
-        addUserProfileViewModel.postUserProfileData(
+        addUserProfileViewModel.setUserProfileDataInput(
             addUserProfileBinding.edtName.text.toString(),
             photoPathURI as Uri,
             addUserProfileBinding.edtPhone.text.toString(),
             addUserProfileBinding.edtAddress.text.toString(),
             addUserProfileBinding.edtEmail.text.toString(),
-        ).observe(this, { response ->
+        )
+        addUserProfileViewModel.postUserProfileData().observe(this, { response ->
             if (response != null) when (response) {
                 is ResponseState.Error -> {
                     response.message?.let {
