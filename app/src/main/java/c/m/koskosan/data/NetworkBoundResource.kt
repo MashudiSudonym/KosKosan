@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import c.m.koskosan.util.ContextProviders
 import c.m.koskosan.vo.ResponseState
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -13,8 +13,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> constructor(private
 
     init {
         result.value = ResponseState.Loading(null)
-        @Suppress("LeakingThis")
-        val dbSource = loadFromDb()
+        @Suppress("LeakingThis") val dbSource = loadFromDb()
         result.addSource(dbSource) { data ->
             result.removeSource(dbSource)
             if (shouldFetch(data)) {
@@ -45,9 +44,9 @@ abstract class NetworkBoundResource<ResultType, RequestType> constructor(private
                 result.removeSource(dbSource)
                 when (response) {
                     is ResponseState.Success -> {
-                        GlobalScope.launch(contextProviders.io) {
+                        CoroutineScope(contextProviders.io).launch {
                             processResponse(response)?.let { saveCallResult(it) }
-                            GlobalScope.launch(contextProviders.main) {
+                            CoroutineScope(contextProviders.main).launch {
                                 result.addSource(loadFromDb()) { newData ->
                                     setValue(ResponseState.Success(newData))
                                 }
@@ -61,7 +60,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> constructor(private
                         }
                     }
                     is ResponseState.Loading -> {
-                        GlobalScope.launch(contextProviders.main) {
+                        CoroutineScope(contextProviders.main).launch {
                             result.addSource(loadFromDb()) { newData ->
                                 setValue(ResponseState.Success(newData))
                             }

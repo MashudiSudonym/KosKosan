@@ -6,7 +6,6 @@ import c.m.koskosan.data.entity.LocationEntity
 import c.m.koskosan.data.model.LocationResponse
 import c.m.koskosan.util.ContextProviders
 import c.m.koskosan.vo.ResponseState
-import timber.log.Timber
 
 class ApplicationRepository(
     private val localRepository: LocalRepository,
