@@ -19,6 +19,8 @@ import androidx.fragment.app.Fragment
 import c.m.koskosan.R
 import c.m.koskosan.ui.detail.DetailActivity
 import c.m.koskosan.util.*
+import c.m.koskosan.util.Constants.PERMISSION_REQUEST_LOCATION
+import c.m.koskosan.util.Constants.UID
 import c.m.koskosan.vo.ResponseState
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.gms.location.*
@@ -31,6 +33,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class MapsFragment : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var loadingAnimationView: LottieAnimationView? = null
@@ -140,7 +143,7 @@ class MapsFragment : Fragment() {
                                         requireActivity(),
                                         DetailActivity::class.java
                                     ).apply {
-                                        putExtra(Constants.UID, infoWindow.tag.toString())
+                                        putExtra(UID, infoWindow.tag.toString())
                                     }
                                     startActivity(detailActivityIntent)
                                 }
@@ -250,7 +253,7 @@ class MapsFragment : Fragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == Constants.PERMISSION_REQUEST_LOCATION) {
+        if (requestCode == PERMISSION_REQUEST_LOCATION) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 getLastLocation()
             }

@@ -22,6 +22,8 @@ import c.m.koskosan.databinding.ActivityUpdateUserProfileBinding
 import c.m.koskosan.databinding.BottomSheetOptionImageBinding
 import c.m.koskosan.ui.main.MainActivity
 import c.m.koskosan.util.*
+import c.m.koskosan.util.Constants.PERMISSION_REQUEST_CAMERA
+import c.m.koskosan.util.Constants.PERMISSION_REQUEST_READ_EXTERNAL_STORAGE
 import c.m.koskosan.vo.ResponseState
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -315,7 +317,7 @@ class UpdateUserProfileActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         // Permission request camera
-        if (requestCode == Constants.PERMISSION_REQUEST_CAMERA) {
+        if (requestCode == PERMISSION_REQUEST_CAMERA) {
             if (
                 grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED
             ) {
@@ -330,7 +332,7 @@ class UpdateUserProfileActivity : AppCompatActivity() {
             }
         }
         // Permission Request Storage
-        if (requestCode == Constants.PERMISSION_REQUEST_READ_EXTERNAL_STORAGE) {
+        if (requestCode == PERMISSION_REQUEST_READ_EXTERNAL_STORAGE) {
             if (
                 grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED
             ) {
@@ -369,7 +371,7 @@ class UpdateUserProfileActivity : AppCompatActivity() {
             ) {
                 requestPermissionsCompat(
                     arrayOf(Manifest.permission.CAMERA),
-                    Constants.PERMISSION_REQUEST_CAMERA
+                    PERMISSION_REQUEST_CAMERA
                 )
             }
         } else {
@@ -379,7 +381,7 @@ class UpdateUserProfileActivity : AppCompatActivity() {
 
             requestPermissionsCompat(
                 arrayOf(Manifest.permission.CAMERA),
-                Constants.PERMISSION_REQUEST_CAMERA
+                PERMISSION_REQUEST_CAMERA
             )
         }
     }
@@ -449,7 +451,7 @@ class UpdateUserProfileActivity : AppCompatActivity() {
             ) {
                 requestPermissionsCompat(
                     arrayOf(Manifest.permission.CAMERA),
-                    Constants.PERMISSION_REQUEST_READ_EXTERNAL_STORAGE
+                    PERMISSION_REQUEST_READ_EXTERNAL_STORAGE
                 )
             }
         } else {
@@ -459,7 +461,7 @@ class UpdateUserProfileActivity : AppCompatActivity() {
 
             requestPermissionsCompat(
                 arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                Constants.PERMISSION_REQUEST_READ_EXTERNAL_STORAGE
+                PERMISSION_REQUEST_READ_EXTERNAL_STORAGE
             )
         }
     }

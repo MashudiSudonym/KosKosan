@@ -6,15 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import c.m.koskosan.R
 import c.m.koskosan.databinding.ActivityOrderBinding
-import c.m.koskosan.util.Constants.Companion.FLAG_START_RENT_DATE
-import c.m.koskosan.util.Constants.Companion.FLAG_STOP_RENT_DATE
-import c.m.koskosan.util.Constants.Companion.FLAG_SURVEY_SCHEDULE_DATE
 import c.m.koskosan.ui.form.order.dialog.OrderBottomSheetDialog
-import c.m.koskosan.util.Constants.Companion.LOCATION_ADDRESS
-import c.m.koskosan.util.Constants.Companion.LOCATION_NAME
-import c.m.koskosan.util.Constants.Companion.LOCATION_PHONE
-import c.m.koskosan.util.Constants.Companion.UID
 import c.m.koskosan.ui.form.order.dialog.OrderDatePickerDialog
+import c.m.koskosan.util.Constants.FLAG_START_RENT_DATE
+import c.m.koskosan.util.Constants.FLAG_STOP_RENT_DATE
+import c.m.koskosan.util.Constants.FLAG_SURVEY_SCHEDULE_DATE
+import c.m.koskosan.util.Constants.LOCATION_ADDRESS
+import c.m.koskosan.util.Constants.LOCATION_NAME
+import c.m.koskosan.util.Constants.LOCATION_PHONE
+import c.m.koskosan.util.Constants.UID
 import id.rizmaulana.sheenvalidator.lib.SheenValidator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -120,7 +120,6 @@ class OrderActivity : AppCompatActivity() {
             // if edit text rent start date is edited, edit text rent is disable
             orderBinding.edtRentStopDate.setText("")
         }
-
 
         // if edit text rent start date is empty, edit text rent stop date is disable
         orderBinding.edtRentStartDate.doAfterTextChanged { orderBinding.edtRentStopDate.isEnabled = true }

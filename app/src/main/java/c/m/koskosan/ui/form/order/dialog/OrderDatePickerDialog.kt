@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import c.m.koskosan.ui.form.order.OrderViewModel
-import c.m.koskosan.util.Constants.Companion.FLAG_START_RENT_DATE
-import c.m.koskosan.util.Constants.Companion.FLAG_STOP_RENT_DATE
-import c.m.koskosan.util.Constants.Companion.FLAG_SURVEY_SCHEDULE_DATE
+import c.m.koskosan.util.Constants.FLAG_START_RENT_DATE
+import c.m.koskosan.util.Constants.FLAG_STOP_RENT_DATE
+import c.m.koskosan.util.Constants.FLAG_SURVEY_SCHEDULE_DATE
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.text.SimpleDateFormat
 import java.util.*

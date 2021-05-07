@@ -11,6 +11,7 @@ import c.m.koskosan.R
 import c.m.koskosan.databinding.FragmentTransactionBinding
 import c.m.koskosan.ui.transaction.detail.DetailTransactionActivity
 import c.m.koskosan.util.Constants
+import c.m.koskosan.util.Constants.UID
 import c.m.koskosan.util.gone
 import c.m.koskosan.util.invisible
 import c.m.koskosan.util.visible
@@ -49,7 +50,7 @@ class TransactionFragment : Fragment() {
         transactionAdapter = TransactionAdapter { orderResponse ->
             val detailTransactionActivityIntent =
                 Intent(requireActivity(), DetailTransactionActivity::class.java).apply {
-                    putExtra(Constants.UID, orderResponse.uid)
+                    putExtra(UID, orderResponse.uid)
                 }
 
             startActivity(detailTransactionActivityIntent)

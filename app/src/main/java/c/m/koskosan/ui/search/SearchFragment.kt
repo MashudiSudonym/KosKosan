@@ -12,6 +12,7 @@ import c.m.koskosan.data.entity.LocationEntity
 import c.m.koskosan.databinding.FragmentSearchBinding
 import c.m.koskosan.ui.detail.DetailActivity
 import c.m.koskosan.util.Constants
+import c.m.koskosan.util.Constants.UID
 import c.m.koskosan.util.gone
 import c.m.koskosan.util.invisible
 import c.m.koskosan.util.visible
@@ -43,7 +44,7 @@ class SearchFragment : Fragment() {
         searchAdapter = SearchAdapter { locationResponse ->
             val detailActivityIntent =
                 Intent(requireActivity(), DetailActivity::class.java).apply {
-                    putExtra(Constants.UID, locationResponse.uid)
+                    putExtra(UID, locationResponse.uid)
                 }
             startActivity(detailActivityIntent)
         }

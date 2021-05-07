@@ -6,10 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import c.m.koskosan.R
 import c.m.koskosan.databinding.ActivityDetailTransactionBinding
 import c.m.koskosan.util.*
-import c.m.koskosan.util.Constants.Companion.ACCEPT_STATUS
-import c.m.koskosan.util.Constants.Companion.CANCEL_STATUS
-import c.m.koskosan.util.Constants.Companion.SURVEY_STATUS
-import c.m.koskosan.util.Constants.Companion.WAITING_STATUS
+import c.m.koskosan.util.Constants.ACCEPT_STATUS
+import c.m.koskosan.util.Constants.CANCEL_STATUS
+import c.m.koskosan.util.Constants.SURVEY_STATUS
+import c.m.koskosan.util.Constants.UID
+import c.m.koskosan.util.Constants.WAITING_STATUS
 import c.m.koskosan.vo.ResponseState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -32,7 +33,7 @@ class DetailTransactionActivity : AppCompatActivity() {
 
         // get parsing transaction uid
         val intent = intent
-        uid = intent.getStringExtra(Constants.UID)
+        uid = intent.getStringExtra(UID)
 
         // AppBar / ActionBar title setup
         setSupportActionBar(detailTransactionBinding.toolbarDetailTransaction)

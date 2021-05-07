@@ -20,11 +20,11 @@ import c.m.koskosan.R
 import c.m.koskosan.data.model.LocationResponse
 import c.m.koskosan.databinding.ActivityDetailBinding
 import c.m.koskosan.ui.form.order.OrderActivity
-import c.m.koskosan.util.Constants
-import c.m.koskosan.util.Constants.Companion.LOCATION_ADDRESS
-import c.m.koskosan.util.Constants.Companion.LOCATION_NAME
-import c.m.koskosan.util.Constants.Companion.LOCATION_PHONE
-import c.m.koskosan.util.Constants.Companion.UID
+import c.m.koskosan.util.Constants.LOCATION_ADDRESS
+import c.m.koskosan.util.Constants.LOCATION_NAME
+import c.m.koskosan.util.Constants.LOCATION_PHONE
+import c.m.koskosan.util.Constants.PERMISSION_REQUEST_LOCATION
+import c.m.koskosan.util.Constants.UID
 import c.m.koskosan.util.gone
 import c.m.koskosan.util.invisible
 import c.m.koskosan.util.visible
@@ -42,6 +42,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.math.BigDecimal
 import java.math.RoundingMode
 
+@Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class DetailActivity : AppCompatActivity() {
     private val detailViewModel: DetailViewModel by viewModel()
     private lateinit var detailBinding: ActivityDetailBinding
@@ -364,7 +365,7 @@ class DetailActivity : AppCompatActivity() {
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ),
-            Constants.PERMISSION_REQUEST_LOCATION
+            PERMISSION_REQUEST_LOCATION
         )
     }
 
@@ -375,7 +376,7 @@ class DetailActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == Constants.PERMISSION_REQUEST_LOCATION) {
+        if (requestCode == PERMISSION_REQUEST_LOCATION) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 getLastLocation()
             }
