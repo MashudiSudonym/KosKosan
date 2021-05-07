@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import c.m.koskosan.R
 import c.m.koskosan.databinding.ActivityLoginBinding
 import c.m.koskosan.ui.main.MainActivity
+import c.m.koskosan.util.ViewUtilities.snackBarWarningLong
 import c.m.koskosan.util.requestPermission
-import c.m.koskosan.util.snackBarWarningLong
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse

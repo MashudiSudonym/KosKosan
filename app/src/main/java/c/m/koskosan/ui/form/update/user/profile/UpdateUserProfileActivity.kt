@@ -24,6 +24,14 @@ import c.m.koskosan.ui.main.MainActivity
 import c.m.koskosan.util.*
 import c.m.koskosan.util.Constants.PERMISSION_REQUEST_CAMERA
 import c.m.koskosan.util.Constants.PERMISSION_REQUEST_READ_EXTERNAL_STORAGE
+import c.m.koskosan.util.ViewUtilities.gone
+import c.m.koskosan.util.ViewUtilities.invisible
+import c.m.koskosan.util.ViewUtilities.snackBarBasicIndefinite
+import c.m.koskosan.util.ViewUtilities.snackBarBasicIndefiniteAction
+import c.m.koskosan.util.ViewUtilities.snackBarBasicShort
+import c.m.koskosan.util.ViewUtilities.snackBarWarningIndefiniteAction
+import c.m.koskosan.util.ViewUtilities.snackBarWarningLong
+import c.m.koskosan.util.ViewUtilities.visible
 import c.m.koskosan.vo.ResponseState
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior

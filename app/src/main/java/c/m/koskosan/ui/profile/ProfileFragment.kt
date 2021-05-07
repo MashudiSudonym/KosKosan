@@ -12,9 +12,9 @@ import c.m.koskosan.databinding.FragmentProfileBinding
 import c.m.koskosan.ui.about.AboutActivity
 import c.m.koskosan.ui.form.update.user.profile.UpdateUserProfileActivity
 import c.m.koskosan.ui.login.LoginActivity
-import c.m.koskosan.util.gone
-import c.m.koskosan.util.invisible
-import c.m.koskosan.util.visible
+import c.m.koskosan.util.ViewUtilities.gone
+import c.m.koskosan.util.ViewUtilities.invisible
+import c.m.koskosan.util.ViewUtilities.visible
 import c.m.koskosan.vo.ResponseState
 import com.bumptech.glide.Glide
 import com.firebase.ui.auth.AuthUI

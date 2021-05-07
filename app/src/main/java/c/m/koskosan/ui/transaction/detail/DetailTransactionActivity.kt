@@ -11,6 +11,10 @@ import c.m.koskosan.util.Constants.CANCEL_STATUS
 import c.m.koskosan.util.Constants.SURVEY_STATUS
 import c.m.koskosan.util.Constants.UID
 import c.m.koskosan.util.Constants.WAITING_STATUS
+import c.m.koskosan.util.ViewUtilities.gone
+import c.m.koskosan.util.ViewUtilities.invisible
+import c.m.koskosan.util.ViewUtilities.sendMessageWhatsApp
+import c.m.koskosan.util.ViewUtilities.visible
 import c.m.koskosan.vo.ResponseState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -92,7 +96,12 @@ class DetailTransactionActivity : AppCompatActivity() {
                             btnCall.setOnClickListener {
                                 sendMessageWhatsApp(
                                     this@DetailTransactionActivity,
-                                    "whatsapp://api.whatsapp.com/send?phone=${data?.phoneLocation?.replace("+", "")}&text=Halo ${data?.nameLocation},saya ingin tanya tentang kos." +
+                                    "whatsapp://api.whatsapp.com/send?phone=${
+                                        data?.phoneLocation?.replace(
+                                            "+",
+                                            ""
+                                        )
+                                    }&text=Halo ${data?.nameLocation},saya ingin tanya tentang kos." +
                                             "\nAtas nama : ${data?.userName}"
                                 )
                             }

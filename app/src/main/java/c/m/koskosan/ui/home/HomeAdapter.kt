@@ -42,8 +42,8 @@ class HomeAdapter(private val onClick: (LocationDistanceResponse) -> Unit) :
         }
 
         @SuppressLint("SetTextI18n")
-        fun bind(LocationDistanceResponse: LocationDistanceResponse) {
-            currentLocation = LocationDistanceResponse
+        fun bind(locationDistanceResponse: LocationDistanceResponse) {
+            currentLocation = locationDistanceResponse
 
             // add data to widget view
             Glide.with(photoLayout).load(currentLocation?.photo?.first())

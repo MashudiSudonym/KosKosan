@@ -20,12 +20,12 @@ import c.m.koskosan.R
 import c.m.koskosan.data.model.LocationDistanceResponse
 import c.m.koskosan.databinding.FragmentHomeBinding
 import c.m.koskosan.ui.detail.DetailActivity
-import c.m.koskosan.util.Constants.Companion.PERMISSION_REQUEST_LOCATION
-import c.m.koskosan.util.Constants.Companion.UID
-import c.m.koskosan.util.gone
-import c.m.koskosan.util.invisible
+import c.m.koskosan.util.Constants.PERMISSION_REQUEST_LOCATION
+import c.m.koskosan.util.Constants.UID
+import c.m.koskosan.util.ViewUtilities.gone
+import c.m.koskosan.util.ViewUtilities.invisible
+import c.m.koskosan.util.ViewUtilities.visible
 import c.m.koskosan.util.requestPermission
-import c.m.koskosan.util.visible
 import c.m.koskosan.vo.ResponseState
 import com.google.android.gms.location.*
 import org.koin.androidx.viewmodel.ext.android.viewModel

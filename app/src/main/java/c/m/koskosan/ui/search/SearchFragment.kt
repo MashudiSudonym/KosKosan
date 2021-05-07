@@ -11,11 +11,10 @@ import androidx.fragment.app.Fragment
 import c.m.koskosan.data.entity.LocationEntity
 import c.m.koskosan.databinding.FragmentSearchBinding
 import c.m.koskosan.ui.detail.DetailActivity
-import c.m.koskosan.util.Constants
 import c.m.koskosan.util.Constants.UID
-import c.m.koskosan.util.gone
-import c.m.koskosan.util.invisible
-import c.m.koskosan.util.visible
+import c.m.koskosan.util.ViewUtilities.gone
+import c.m.koskosan.util.ViewUtilities.invisible
+import c.m.koskosan.util.ViewUtilities.visible
 import c.m.koskosan.vo.ResponseState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

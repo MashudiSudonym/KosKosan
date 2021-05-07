@@ -44,9 +44,9 @@ class TransactionAdapter(private val onClick: (OrderResponse) -> Unit) :
         }
 
         @SuppressLint("SetTextI18n")
-        fun bind(OrderResponse: OrderResponse) {
+        fun bind(orderResponse: OrderResponse) {
             val context = itemView.context
-            currentTransaction = OrderResponse
+            currentTransaction = orderResponse
 
             // add data to widget view
             transactionDateLayout.text =

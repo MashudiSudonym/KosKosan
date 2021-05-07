@@ -122,7 +122,9 @@ class OrderActivity : AppCompatActivity() {
         }
 
         // if edit text rent start date is empty, edit text rent stop date is disable
-        orderBinding.edtRentStartDate.doAfterTextChanged { orderBinding.edtRentStopDate.isEnabled = true }
+        orderBinding.edtRentStartDate.doAfterTextChanged {
+            orderBinding.edtRentStopDate.isEnabled = true
+        }
 
         // selected stop rent date
         orderBinding.edtRentStopDate.setOnClickListener {

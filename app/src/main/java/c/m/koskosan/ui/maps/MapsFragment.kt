@@ -13,14 +13,15 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import c.m.koskosan.R
 import c.m.koskosan.ui.detail.DetailActivity
-import c.m.koskosan.util.*
 import c.m.koskosan.util.Constants.PERMISSION_REQUEST_LOCATION
 import c.m.koskosan.util.Constants.UID
+import c.m.koskosan.util.ViewUtilities.invisible
+import c.m.koskosan.util.ViewUtilities.visible
+import c.m.koskosan.util.requestPermission
 import c.m.koskosan.vo.ResponseState
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.gms.location.*

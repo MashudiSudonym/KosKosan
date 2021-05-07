@@ -1,16 +1,15 @@
 package c.m.koskosan.ui.splash
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import c.m.koskosan.databinding.ActivitySplashscreenBinding
 import c.m.koskosan.ui.login.LoginActivity
 import c.m.koskosan.ui.main.MainActivity
-import c.m.koskosan.util.Constants
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashscreenActivity : AppCompatActivity() {
