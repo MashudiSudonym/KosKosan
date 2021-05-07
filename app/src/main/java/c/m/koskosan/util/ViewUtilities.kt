@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import c.m.koskosan.R
 import coil.ImageLoader
 import coil.load
+import coil.transition.CrossfadeTransition
 import com.google.android.material.snackbar.Snackbar
 
 /**
