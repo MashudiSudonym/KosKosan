@@ -5,7 +5,11 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import c.m.koskosan.R
+import coil.ImageLoader
+import coil.load
 import com.google.android.material.snackbar.Snackbar
 
 /**
@@ -72,5 +76,12 @@ object ViewUtilities {
         }
 
         packageContext.startActivity(whatsAppIntent)
+    }
+
+    fun loadImageWithCoil(imageView: ImageView, imageUrl: String) {
+        imageView.load(imageUrl) {
+            placeholder(R.drawable.ic_icon)
+            error(R.drawable.ic_broken_image)
+        }
     }
 }

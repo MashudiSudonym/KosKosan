@@ -9,6 +9,7 @@ import c.m.koskosan.R
 import c.m.koskosan.data.entity.LocationEntity
 import c.m.koskosan.data.model.LocationResponse
 import c.m.koskosan.databinding.ItemSearchBinding
+import c.m.koskosan.util.ViewUtilities.loadImageWithCoil
 import com.bumptech.glide.Glide
 
 class SearchAdapter(
@@ -44,11 +45,7 @@ class SearchAdapter(
             location = locationEntity
 
             // add data to widget view
-            Glide.with(photoLayout).load(location?.photoURL)
-                .circleCrop()
-                .placeholder(R.drawable.ic_icon)
-                .error(R.drawable.ic_broken_image)
-                .into(photoLayout)
+            loadImageWithCoil(photoLayout, location?.photoURL.toString())
             nameLayout.text = location?.nameLocation
         }
     }

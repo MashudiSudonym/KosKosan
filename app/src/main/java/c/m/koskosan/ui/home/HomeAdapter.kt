@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import c.m.koskosan.R
 import c.m.koskosan.data.model.LocationDistanceResponse
 import c.m.koskosan.databinding.ItemLocationBinding
+import c.m.koskosan.util.ViewUtilities.loadImageWithCoil
 import com.bumptech.glide.Glide
 
 class HomeAdapter(private val onClick: (LocationDistanceResponse) -> Unit) :
@@ -46,10 +47,7 @@ class HomeAdapter(private val onClick: (LocationDistanceResponse) -> Unit) :
             currentLocation = locationDistanceResponse
 
             // add data to widget view
-            Glide.with(photoLayout).load(currentLocation?.photo?.first())
-                .placeholder(R.drawable.ic_icon)
-                .error(R.drawable.ic_broken_image)
-                .into(photoLayout)
+            loadImageWithCoil(photoLayout, currentLocation?.photo?.first().toString())
             nameLayout.text = currentLocation?.name
             addressLayout.text = currentLocation?.address
             phoneLayout.text = currentLocation?.phone

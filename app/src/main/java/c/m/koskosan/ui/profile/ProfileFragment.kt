@@ -14,6 +14,7 @@ import c.m.koskosan.ui.form.update.user.profile.UpdateUserProfileActivity
 import c.m.koskosan.ui.login.LoginActivity
 import c.m.koskosan.util.ViewUtilities.gone
 import c.m.koskosan.util.ViewUtilities.invisible
+import c.m.koskosan.util.ViewUtilities.loadImageWithCoil
 import c.m.koskosan.util.ViewUtilities.visible
 import c.m.koskosan.vo.ResponseState
 import com.bumptech.glide.Glide
@@ -79,10 +80,7 @@ class ProfileFragment : Fragment() {
     // parsing data to widget view
     @SuppressLint("SetTextI18n")
     private fun initializeDataToView(response: ResponseState<UserResponse>) {
-        Glide.with(binding.imgProfile).load(response.data?.imageProfile)
-            .placeholder(R.drawable.ic_baseline_person_pin)
-            .error(R.drawable.ic_broken_image)
-            .into(binding.imgProfile)
+        loadImageWithCoil(binding.imgProfile, response.data?.imageProfile.toString())
         binding.tvName.text = response.data?.name
         binding.tvEmail.text = response.data?.email
         binding.tvAddress.text = getString(R.string.address) + ": " + response.data?.address

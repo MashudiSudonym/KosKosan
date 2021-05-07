@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import c.m.koskosan.databinding.FragmentBottomSheetOrderConfirmationBinding
 import c.m.koskosan.ui.form.order.OrderViewModel
-import c.m.koskosan.util.gone
-import c.m.koskosan.util.visible
+import c.m.koskosan.util.ViewUtilities.gone
+import c.m.koskosan.util.ViewUtilities.visible
 import c.m.koskosan.vo.ResponseState
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
