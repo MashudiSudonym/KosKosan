@@ -15,5 +15,5 @@ class DetailViewModel(private val firebaseRepository: FirebaseRepository) : View
     }
 
     fun getLocationDetailByUid(): LiveData<ResponseState<LocationResponse>> =
-        firebaseRepository.readLocationDetailByUid(_locationUidInput)
+        firebaseRepository.readLocationDetailByLocationUid(_locationUidInput)
 }

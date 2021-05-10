@@ -100,7 +100,7 @@ class FirebaseRepository {
 
     // update user profile data
     fun updateUserProfileData(
-        uid: String,
+        userUid: String,
         name: String,
         address: String,
         email: String
@@ -108,7 +108,7 @@ class FirebaseRepository {
         val progressUploadingData: MutableLiveData<ResponseState<Double>> = MutableLiveData()
         val progressDone = 100.0
         val mapUserProfileData = mapOf(
-            "uid" to uid,
+            "uid" to userUid,
             "name" to name,
             "address" to address,
             "email" to email
@@ -117,7 +117,7 @@ class FirebaseRepository {
         // Loading State
         progressUploadingData.value = ResponseState.Loading(0.0)
 
-        userProfileCollection.document(uid)
+        userProfileCollection.document(userUid)
             .update(mapUserProfileData)
             .addOnSuccessListener {
                 progressUploadingData.value = ResponseState.Success(progressDone)
@@ -130,13 +130,13 @@ class FirebaseRepository {
     }
 
     // get user profile data by user uid
-    fun readUserProfileData(uid: String): LiveData<ResponseState<UserResponse>> {
+    fun readUserProfileData(userUid: String): LiveData<ResponseState<UserResponse>> {
         val userProfileData: MutableLiveData<ResponseState<UserResponse>> = MutableLiveData()
 
         // Loading State
         userProfileData.value = ResponseState.Loading(null)
 
-        userProfileCollection.whereEqualTo("uid", uid).limit(1).get()
+        userProfileCollection.whereEqualTo("uid", userUid).limit(1).get()
             .addOnSuccessListener { snapshot ->
                 val users = snapshot?.toObjects(UserResponse::class.java)
 
@@ -177,14 +177,14 @@ class FirebaseRepository {
         return locations
     }
 
-    // get location by uid
-    fun readLocationDetailByUid(uid: String): LiveData<ResponseState<LocationResponse>> {
+    // get location by location uid
+    fun readLocationDetailByLocationUid(locationUid: String): LiveData<ResponseState<LocationResponse>> {
         val location: MutableLiveData<ResponseState<LocationResponse>> = MutableLiveData()
 
         // Loading state
         location.value = ResponseState.Loading(null)
 
-        locationCollection.whereEqualTo("uid", uid).get()
+        locationCollection.whereEqualTo("uid", locationUid).get()
             .addOnSuccessListener { snapshot ->
                 val locationSnapshot = snapshot?.toObjects(LocationResponse::class.java)
 
@@ -256,13 +256,13 @@ class FirebaseRepository {
     }
 
     // get user order by user uid
-    fun readOrderByUserUid(uid: String): LiveData<ResponseState<List<OrderResponse>>> {
+    fun readOrderByUserUid(userUid: String): LiveData<ResponseState<List<OrderResponse>>> {
         val orders: MutableLiveData<ResponseState<List<OrderResponse>>> = MutableLiveData()
 
         // show loading state
         orders.value = ResponseState.Loading(null)
 
-        orderCollection.whereEqualTo("userUID", uid)
+        orderCollection.whereEqualTo("userUID", userUid)
             .orderBy("orderCreated", Query.Direction.DESCENDING).get()
             .addOnSuccessListener { snapshot ->
                 val orderSnapshot = snapshot?.toObjects(OrderResponse::class.java)
@@ -279,13 +279,13 @@ class FirebaseRepository {
     }
 
     // get user order details by order uid
-    fun readOrderDetailByOrderUid(uid: String): LiveData<ResponseState<OrderResponse>> {
+    fun readOrderDetailByOrderUid(orderUid: String): LiveData<ResponseState<OrderResponse>> {
         val orders: MutableLiveData<ResponseState<OrderResponse>> = MutableLiveData()
 
         // show loading state
         orders.value = ResponseState.Loading(null)
 
-        orderCollection.whereEqualTo("uid", uid).get()
+        orderCollection.whereEqualTo("uid", orderUid).get()
             .addOnSuccessListener { snapshot ->
                 val orderSnapshot = snapshot?.toObjects(OrderResponse::class.java)
 
