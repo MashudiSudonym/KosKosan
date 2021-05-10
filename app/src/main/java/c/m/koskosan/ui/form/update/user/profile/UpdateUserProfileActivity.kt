@@ -21,19 +21,21 @@ import c.m.koskosan.data.model.UserResponse
 import c.m.koskosan.databinding.ActivityUpdateUserProfileBinding
 import c.m.koskosan.databinding.BottomSheetOptionImageBinding
 import c.m.koskosan.ui.main.MainActivity
-import c.m.koskosan.util.*
 import c.m.koskosan.util.Constants.PERMISSION_REQUEST_CAMERA
 import c.m.koskosan.util.Constants.PERMISSION_REQUEST_READ_EXTERNAL_STORAGE
 import c.m.koskosan.util.ViewUtilities.gone
 import c.m.koskosan.util.ViewUtilities.invisible
+import c.m.koskosan.util.ViewUtilities.loadImageWithCoil
 import c.m.koskosan.util.ViewUtilities.snackBarBasicIndefinite
 import c.m.koskosan.util.ViewUtilities.snackBarBasicIndefiniteAction
 import c.m.koskosan.util.ViewUtilities.snackBarBasicShort
 import c.m.koskosan.util.ViewUtilities.snackBarWarningIndefiniteAction
 import c.m.koskosan.util.ViewUtilities.snackBarWarningLong
 import c.m.koskosan.util.ViewUtilities.visible
+import c.m.koskosan.util.checkSelfPermissionCompat
+import c.m.koskosan.util.requestPermissionsCompat
+import c.m.koskosan.util.shouldShowRequestPermissionRationaleCompat
 import c.m.koskosan.vo.ResponseState
-import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import id.rizmaulana.sheenvalidator.lib.SheenValidator
@@ -286,10 +288,10 @@ class UpdateUserProfileActivity : AppCompatActivity() {
 
     // add result of data from database to form field view
     private fun initializeDataToFormFieldView(response: ResponseState<UserResponse>) {
-        Glide.with(updateUserProfileBinding.imgProfile)
-            .load(response.data?.imageProfile)
-            .placeholder(R.drawable.ic_baseline_person_pin)
-            .error(R.drawable.ic_broken_image).into(updateUserProfileBinding.imgProfile)
+        loadImageWithCoil(
+            updateUserProfileBinding.imgProfile,
+            response.data?.imageProfile.toString()
+        )
         updateUserProfileBinding.edtName.setText(response.data?.name)
         updateUserProfileBinding.edtPhone.setText(response.data?.phoneNumber)
         updateUserProfileBinding.edtAddress.setText(response.data?.address)

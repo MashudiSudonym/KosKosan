@@ -6,11 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import c.m.koskosan.R
 import c.m.koskosan.data.model.LocationDistanceResponse
 import c.m.koskosan.databinding.ItemLocationBinding
 import c.m.koskosan.util.ViewUtilities.loadImageWithCoil
-import com.bumptech.glide.Glide
+
 
 class HomeAdapter(private val onClick: (LocationDistanceResponse) -> Unit) :
     ListAdapter<LocationDistanceResponse, HomeAdapter.HomeViewHolder>(DiffCallBack) {
@@ -25,7 +24,10 @@ class HomeAdapter(private val onClick: (LocationDistanceResponse) -> Unit) :
         holder.bind(contents)
     }
 
-    class HomeViewHolder(itemView: ItemLocationBinding, onClick: (LocationDistanceResponse) -> Unit) :
+    class HomeViewHolder(
+        itemView: ItemLocationBinding,
+        onClick: (LocationDistanceResponse) -> Unit
+    ) :
         RecyclerView.ViewHolder(itemView.root) {
         private val photoLayout = itemView.imgLocationPhoto
         private val nameLayout = itemView.tvLocationName

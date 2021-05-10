@@ -17,7 +17,6 @@ import c.m.koskosan.util.ViewUtilities.invisible
 import c.m.koskosan.util.ViewUtilities.loadImageWithCoil
 import c.m.koskosan.util.ViewUtilities.visible
 import c.m.koskosan.vo.ResponseState
-import com.bumptech.glide.Glide
 import com.firebase.ui.auth.AuthUI
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

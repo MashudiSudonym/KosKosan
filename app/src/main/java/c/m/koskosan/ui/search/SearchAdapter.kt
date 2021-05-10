@@ -5,12 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import c.m.koskosan.R
 import c.m.koskosan.data.entity.LocationEntity
-import c.m.koskosan.data.model.LocationResponse
 import c.m.koskosan.databinding.ItemSearchBinding
 import c.m.koskosan.util.ViewUtilities.loadImageWithCoil
-import com.bumptech.glide.Glide
 
 class SearchAdapter(
     private val onClick: (LocationEntity) -> Unit

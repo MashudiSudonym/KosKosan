@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">KosKosan</string>
     <string name="title_home">Home</string>
-    <string name="title_maps">Maps</string>
-    <string name="title_notifications">Notifications</string>
     <string name="action_sign_in_short">Sign in with Phone</string>
     <string name="welcome">"Welcome!"</string>
     <string name="alert_login_cancel">Login cancel!</string>
@@ -11,7 +9,6 @@
     <string name="alert_camera_permission_denied">Camera Permission Denied!</string>
     <string name="alert_camera_permission_available">Camera Permission Available</string>
     <string name="ok">OK</string>
-    <string name="no">No</string>
     <string name="cancel">Cancel</string>
     <string name="alert_camera_access_required">Camera Access Required</string>
     <string name="alert_camera_permission_not_available">Camera Permission not Available</string>
@@ -31,7 +28,6 @@
     <string name="alert_storage_permission_granted">Storage Permission Granted!</string>
     <string name="alert_storage_permission_denied">Storage Permission Denied!</string>
     <string name="alert_photo_null">Your Photo Profile It\'s Blank</string>
-    <string name="uploading_process">Uploading Process %2$d %%</string>
     <string name="data_error_null">Something wrong!, it\'s null</string>
     <string name="profile">Profile</string>
     <string name="image_requirement_size_description">We strongly recommend using images taken from the gallery and measuring less than 300 Mb.</string>
@@ -47,13 +43,7 @@
     <string name="location_type">Location Type</string>
     <string name="location_distance">Location Distance</string>
     <string name="km">KM</string>
-    <string name="kos">Kos</string>
     <string name="strip">-</string>
-    <string name="alert_location_permission_granted">Location Permission Granted!</string>
-    <string name="alert_location_permission_denied">Location Permission Denied!</string>
-    <string name="alert_location_access_required">Location Access Required</string>
-    <string name="alert_location_permission_not_available">Location Permission not Available</string>
-    <string name="send_message">Send Message</string>
     <string name="share">Share</string>
     <string name="order">Order</string>
     <string name="detail">Location Detail</string>
@@ -85,5 +75,4 @@
     <string name="order_status">"Order Status : "</string>
     <string name="customer_data">Customer Data :</string>
     <string name="location_data">"Location Data : "</string>
-    <string name="long_text" translatable="false">you must be to go left behind and other right not left another zero if not going to anywhere to be good you must be to go left behind and other right not left another zero if not going to anywhere to be good you must be to go left behind and other right not left another zero if not going to anywhere to be good you must be to go left behind and other right not left another zero if not going to anywhere to be good</string>
 </resources>
