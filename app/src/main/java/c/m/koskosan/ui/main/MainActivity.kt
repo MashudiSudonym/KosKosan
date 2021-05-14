@@ -38,11 +38,12 @@ class MainActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsRes
         mainBinding.fabBottomNav.setOnClickListener { navController.navigate(R.id.navigation_maps) }
 
         // Observe return value of the data
-        mainViewModel.isUserProfileDataNotNull().observe(this, { userProfileData ->
+        mainViewModel.isUserProfileDataIsNull().observe(this, { userProfileDataIsNull ->
             val addUserProfileIntent = Intent(this, AddUserProfileActivity::class.java)
-            // if user profile data not null to be true it's open form add user profile screen
+
+            // if user profile data is null to be true it's open form add user profile screen
             // else do nothing, stay on this activity
-            if (userProfileData) {
+            if (userProfileDataIsNull) {
                 finish()
                 startActivity(addUserProfileIntent)
             }

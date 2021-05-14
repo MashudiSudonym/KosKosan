@@ -31,19 +31,19 @@ class FirebaseRepository {
 
     // Check user data from users collection firestore
     fun checkUserProfileData(uid: String): LiveData<Boolean> {
-        val isUserProfileDataNotNull: MutableLiveData<Boolean> = MutableLiveData()
+        val isUserProfileData: MutableLiveData<Boolean> = MutableLiveData()
         userProfileCollection.whereEqualTo("uid", uid).limit(1).get()
             .addOnSuccessListener { snapshot ->
                 val users = snapshot?.toObjects(UserResponse::class.java)
 
                 // this return to false if users have a data
-                isUserProfileDataNotNull.value = users?.isNotEmpty() == false
+                isUserProfileData.value = users?.isNotEmpty() == false
             }
             .addOnFailureListener { error ->
                 Timber.e("$error")
             }
 
-        return isUserProfileDataNotNull
+        return isUserProfileData
     }
 
     // post user profile data to firestore and user profile image to storage

@@ -6,14 +6,14 @@ import c.m.koskosan.data.repository.AuthRepository
 import c.m.koskosan.data.repository.FirebaseRepository
 
 class MainViewModel(
-    private val authRepository: AuthRepository,
+    authRepository: AuthRepository,
     private val firebaseRepository: FirebaseRepository
 ) : ViewModel() {
     // Get user uid
     private val userUid: LiveData<String> = authRepository.getUserUid()
 
     // user profile data status not null ?
-    fun isUserProfileDataNotNull(): LiveData<Boolean> =
+    fun isUserProfileDataIsNull(): LiveData<Boolean> =
         firebaseRepository.checkUserProfileData(userUid.value.toString())
 
 }
