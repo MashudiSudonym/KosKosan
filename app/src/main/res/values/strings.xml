@@ -30,7 +30,7 @@
     <string name="alert_photo_null">Your Photo Profile It\'s Blank</string>
     <string name="data_error_null">Something wrong!, it\'s null</string>
     <string name="profile">Profile</string>
-    <string name="image_requirement_size_description">We strongly recommend using images taken from the gallery and measuring less than 300 Mb.</string>
+    <string name="image_requirement_size_description">We strongly recommend using images taken from the gallery and measuring less than 6 Mb.</string>
     <string name="about">About this app</string>
     <string name="about_description">KosKosan is an application to help find the location of the nearest boarding house from your location point.</string>
     <string name="edit_profile">Edit Profile</string>
@@ -75,4 +75,5 @@
     <string name="order_status">"Order Status : "</string>
     <string name="customer_data">Customer Data :</string>
     <string name="location_data">"Location Data : "</string>
+    <string name="error_upload_message">"Your image size must be lower than 6 Mb or "</string>
 </resources>

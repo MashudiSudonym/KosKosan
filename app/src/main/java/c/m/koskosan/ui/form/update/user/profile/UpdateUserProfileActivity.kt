@@ -188,7 +188,7 @@ class UpdateUserProfileActivity : AppCompatActivity() {
                 is ResponseState.Error -> {
                     response.message?.let {
                         hideSendingAnimation()
-                        layout.snackBarWarningLong(it)
+                        layout.snackBarWarningLong(getString(R.string.error_upload_message) + it)
                     }
                 }
                 is ResponseState.Loading -> {

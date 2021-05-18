@@ -30,7 +30,7 @@
     <string name="alert_photo_null">Foto profilmu masih kosong</string>
     <string name="profile">Profil</string>
     <string name="data_error_null">Ada yang salah!!, ini null</string>
-    <string name="image_requirement_size_description">Kami sangat menyarankan menggunakan gambar yang diambil dari galeri dan berukuran kurang dari 300 Mb.</string>
+    <string name="image_requirement_size_description">Kami sangat menyarankan menggunakan gambar yang diambil dari galeri dan berukuran kurang dari 6 Mb.</string>
     <string name="about">Tentang aplikasi ini</string>
     <string name="about_description">KosKosan merupakan aplikasi untuk membantu mencari lokasi kos terdekat dari titik lokasi anda.</string>
     <string name="edit_profile">Edit Profil</string>
@@ -74,4 +74,5 @@
     <string name="order_status">"Status Pesanan : "</string>
     <string name="customer_data">"Data Pemesan : "</string>
     <string name="location_data">"Data Lokasi : "</string>
+    <string name="error_upload_message">"Ukuran gambar anda harus lebih rendah dari 6 Mb atau "</string>
 </resources>
