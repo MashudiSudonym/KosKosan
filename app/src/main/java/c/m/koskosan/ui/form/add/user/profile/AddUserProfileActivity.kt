@@ -24,6 +24,7 @@ import c.m.koskosan.ui.main.MainActivity
 import c.m.koskosan.util.Constants.PERMISSION_REQUEST_CAMERA
 import c.m.koskosan.util.Constants.PERMISSION_REQUEST_READ_EXTERNAL_STORAGE
 import c.m.koskosan.util.ViewUtilities.gone
+import c.m.koskosan.util.ViewUtilities.hideKeyboard
 import c.m.koskosan.util.ViewUtilities.invisible
 import c.m.koskosan.util.ViewUtilities.snackBarBasicIndefinite
 import c.m.koskosan.util.ViewUtilities.snackBarBasicIndefiniteAction
@@ -168,6 +169,10 @@ class AddUserProfileActivity : AppCompatActivity(),
         }
 
         addUserProfileBinding.btnSave.setOnClickListener {
+            // hide keyboard after click button
+            hideKeyboard(layout)
+
+            // do validate check for field
             if (photoPathURI == null) {
                 layout.snackBarWarningLong(getString(R.string.alert_photo_null))
             } else {
