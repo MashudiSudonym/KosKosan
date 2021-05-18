@@ -30,9 +30,9 @@ class FirebaseRepository {
     private val orderCollection: CollectionReference = firestore.collection("orders")
 
     // Check user data from users collection firestore
-    fun checkUserProfileData(uid: String): LiveData<Boolean> {
+    fun checkUserProfileData(userUID: String): LiveData<Boolean> {
         val isUserProfileData: MutableLiveData<Boolean> = MutableLiveData()
-        userProfileCollection.whereEqualTo("uid", uid).limit(1).get()
+        userProfileCollection.whereEqualTo("uid", userUID).limit(1).get()
             .addOnSuccessListener { snapshot ->
                 val users = snapshot?.toObjects(UserResponse::class.java)
 
@@ -220,7 +220,8 @@ class FirebaseRepository {
         orderStatus: Int,
         surveySchedule: String,
         rentStart: String,
-        rentStop: String
+        rentStop: String,
+        locationOwnerUID: String,
     ): LiveData<ResponseState<OrderResponse>> {
         val order: MutableLiveData<ResponseState<OrderResponse>> = MutableLiveData()
         val randomOrderUID = orderCollection.document().id
@@ -238,7 +239,8 @@ class FirebaseRepository {
             orderStatus,
             surveySchedule,
             rentStart,
-            rentStop
+            rentStop,
+            locationOwnerUID
         ).toMap()
 
         // show loading state

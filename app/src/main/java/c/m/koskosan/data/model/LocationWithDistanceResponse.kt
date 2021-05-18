@@ -2,7 +2,7 @@ package c.m.koskosan.data.model
 
 import com.google.firebase.firestore.GeoPoint
 
-data class LocationDistanceResponse(
+data class LocationWithDistanceResponse(
     var uid: String? = null,
     var name: String? = null,
     var address: String? = null,

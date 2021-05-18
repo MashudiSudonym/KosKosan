@@ -1,4 +1,4 @@
-package c.m.koskosan.ui.form.order
+package c.m.koskosan.ui.form.add.user.order
 
 import android.os.Bundle
 import android.view.View
@@ -6,13 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import c.m.koskosan.R
 import c.m.koskosan.databinding.ActivityOrderBinding
-import c.m.koskosan.ui.form.order.dialog.OrderBottomSheetDialog
-import c.m.koskosan.ui.form.order.dialog.OrderDatePickerDialog
+import c.m.koskosan.ui.form.add.user.order.dialog.OrderBottomSheetDialog
+import c.m.koskosan.ui.form.add.user.order.dialog.OrderDatePickerDialog
 import c.m.koskosan.util.Constants.FLAG_START_RENT_DATE
 import c.m.koskosan.util.Constants.FLAG_STOP_RENT_DATE
 import c.m.koskosan.util.Constants.FLAG_SURVEY_SCHEDULE_DATE
 import c.m.koskosan.util.Constants.LOCATION_ADDRESS
 import c.m.koskosan.util.Constants.LOCATION_NAME
+import c.m.koskosan.util.Constants.LOCATION_OWNER_UID
 import c.m.koskosan.util.Constants.LOCATION_PHONE
 import c.m.koskosan.util.Constants.UID
 import id.rizmaulana.sheenvalidator.lib.SheenValidator
@@ -28,6 +29,7 @@ class OrderActivity : AppCompatActivity() {
     private var locationName: String? = ""
     private var locationAddress: String? = ""
     private var locationPhone: String? = ""
+    private var locationOwnerUID: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +54,7 @@ class OrderActivity : AppCompatActivity() {
         locationName = intent.getStringExtra(LOCATION_NAME)
         locationAddress = intent.getStringExtra(LOCATION_ADDRESS)
         locationPhone = intent.getStringExtra(LOCATION_PHONE)
+        locationOwnerUID = intent.getStringExtra(LOCATION_OWNER_UID)
 
         // set location name text view
         orderBinding.tvNameLocationOrder.text = locationName
@@ -61,6 +64,7 @@ class OrderActivity : AppCompatActivity() {
         orderViewModel.setLocationName(locationName.toString())
         orderViewModel.setLocationAddress(locationAddress.toString())
         orderViewModel.setLocationPhone(locationPhone.toString())
+        orderViewModel.setLocationOwnerUID(locationOwnerUID.toString())
 
         // selectedDate for survey schedule date, start rent date, stop rent date
         selectedDate()

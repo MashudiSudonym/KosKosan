@@ -19,6 +19,7 @@ data class OrderResponse(
     var surveySchedule: String? = null,
     var rentStart: String? = null,
     var rentStop: String? = null,
+    var locationOwnerUID: String? = null
 ) {
     @Exclude
     fun toMap(): Map<String, Any?> = mapOf(
@@ -36,6 +37,7 @@ data class OrderResponse(
         "surveySchedule" to surveySchedule,
         "rentStart" to rentStart,
         "rentStop" to rentStop,
+        "locationOwnerUID" to locationOwnerUID,
     )
 
 }

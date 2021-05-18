@@ -19,9 +19,10 @@ import androidx.core.app.ActivityCompat
 import c.m.koskosan.R
 import c.m.koskosan.data.model.LocationResponse
 import c.m.koskosan.databinding.ActivityDetailBinding
-import c.m.koskosan.ui.form.order.OrderActivity
+import c.m.koskosan.ui.form.add.user.order.OrderActivity
 import c.m.koskosan.util.Constants.LOCATION_ADDRESS
 import c.m.koskosan.util.Constants.LOCATION_NAME
+import c.m.koskosan.util.Constants.LOCATION_OWNER_UID
 import c.m.koskosan.util.Constants.LOCATION_PHONE
 import c.m.koskosan.util.Constants.PERMISSION_REQUEST_LOCATION
 import c.m.koskosan.util.Constants.UID
@@ -124,6 +125,7 @@ class DetailActivity : AppCompatActivity() {
                         putExtra(LOCATION_NAME, response.data.name)
                         putExtra(LOCATION_ADDRESS, response.data.address)
                         putExtra(LOCATION_PHONE, response.data.phone)
+                        putExtra(LOCATION_OWNER_UID, response.data.ownerUID)
                     }
                     detailBinding.btnOrder.setOnClickListener { startActivity(orderActivityIntent) }
                 }

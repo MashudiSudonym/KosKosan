@@ -8,7 +8,7 @@ import c.m.koskosan.data.repository.LocalRepository
 import c.m.koskosan.data.room.LocationDatabase
 import c.m.koskosan.ui.detail.DetailViewModel
 import c.m.koskosan.ui.form.add.user.profile.AddUserProfileViewModel
-import c.m.koskosan.ui.form.order.OrderViewModel
+import c.m.koskosan.ui.form.add.user.order.OrderViewModel
 import c.m.koskosan.ui.form.update.user.profile.UpdateUserProfileViewModel
 import c.m.koskosan.ui.home.HomeViewModel
 import c.m.koskosan.ui.main.MainViewModel

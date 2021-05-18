@@ -1,4 +1,4 @@
-package c.m.koskosan.ui.form.order.dialog
+package c.m.koskosan.ui.form.add.user.order.dialog
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -6,7 +6,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
-import c.m.koskosan.ui.form.order.OrderViewModel
+import c.m.koskosan.ui.form.add.user.order.OrderViewModel
 import c.m.koskosan.util.Constants.FLAG_START_RENT_DATE
 import c.m.koskosan.util.Constants.FLAG_STOP_RENT_DATE
 import c.m.koskosan.util.Constants.FLAG_SURVEY_SCHEDULE_DATE

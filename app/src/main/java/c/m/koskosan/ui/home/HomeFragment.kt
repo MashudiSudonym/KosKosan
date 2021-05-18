@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import c.m.koskosan.R
-import c.m.koskosan.data.model.LocationDistanceResponse
+import c.m.koskosan.data.model.LocationWithDistanceResponse
 import c.m.koskosan.databinding.FragmentHomeBinding
 import c.m.koskosan.ui.detail.DetailActivity
 import c.m.koskosan.util.Constants.PERMISSION_REQUEST_LOCATION
@@ -43,7 +43,7 @@ class HomeFragment : Fragment() {
     private var deviceLocationLongitude: Double? = 0.0
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var deviceCoordinate: Location? = null
-    private var locationList: ArrayList<LocationDistanceResponse> = arrayListOf()
+    private var locationWithList: ArrayList<LocationWithDistanceResponse> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -101,7 +101,7 @@ class HomeFragment : Fragment() {
                 is ResponseState.Error -> showErrorStateView() // error state
                 is ResponseState.Loading -> {
                     // clear list
-                    locationList.clear()
+                    locationWithList.clear()
 
                     // loading state
                     showLoadingStateView()
@@ -126,7 +126,7 @@ class HomeFragment : Fragment() {
                             deviceCoordinate?.distanceTo(locationCoordinate)?.div(1000)
                                 ?.toDouble() as Double
                         ).setScale(2, RoundingMode.HALF_EVEN).toDouble()
-                        val locationWithDistance = LocationDistanceResponse(
+                        val locationWithDistance = LocationWithDistanceResponse(
                             result.uid,
                             result.name,
                             result.address,
@@ -138,12 +138,12 @@ class HomeFragment : Fragment() {
                             distance
                         )
 
-                        locationList.add(locationWithDistance)
-                        locationList.sortBy { it.distance }
+                        locationWithList.add(locationWithDistance)
+                        locationWithList.sortBy { it.distance }
                     }
 
                     // add data to recycler view adapter
-                    homeAdapter.submitList(locationList)
+                    homeAdapter.submitList(locationWithList)
                     binding.rvLocation.adapter = homeAdapter
                     binding.rvLocation.setHasFixedSize(true)
                 }

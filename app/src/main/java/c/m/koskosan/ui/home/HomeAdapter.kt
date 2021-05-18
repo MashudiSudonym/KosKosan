@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import c.m.koskosan.data.model.LocationDistanceResponse
+import c.m.koskosan.data.model.LocationWithDistanceResponse
 import c.m.koskosan.databinding.ItemLocationBinding
 import c.m.koskosan.util.ViewUtilities.loadImageWithCoil
 
 
-class HomeAdapter(private val onClick: (LocationDistanceResponse) -> Unit) :
-    ListAdapter<LocationDistanceResponse, HomeAdapter.HomeViewHolder>(DiffCallBack) {
+class HomeAdapter(private val onClick: (LocationWithDistanceResponse) -> Unit) :
+    ListAdapter<LocationWithDistanceResponse, HomeAdapter.HomeViewHolder>(DiffCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         val view = ItemLocationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,7 +26,7 @@ class HomeAdapter(private val onClick: (LocationDistanceResponse) -> Unit) :
 
     class HomeViewHolder(
         itemView: ItemLocationBinding,
-        onClick: (LocationDistanceResponse) -> Unit
+        onClick: (LocationWithDistanceResponse) -> Unit
     ) :
         RecyclerView.ViewHolder(itemView.root) {
         private val photoLayout = itemView.imgLocationPhoto
@@ -34,7 +34,7 @@ class HomeAdapter(private val onClick: (LocationDistanceResponse) -> Unit) :
         private val addressLayout = itemView.tvLocationAddress
         private val distanceLayout = itemView.tvLocationDistance
         private val phoneLayout = itemView.tvLocationPhone
-        private var currentLocation: LocationDistanceResponse? = null
+        private var currentLocation: LocationWithDistanceResponse? = null
 
         init {
             itemView.locationItemLayout.setOnClickListener {
@@ -45,8 +45,8 @@ class HomeAdapter(private val onClick: (LocationDistanceResponse) -> Unit) :
         }
 
         @SuppressLint("SetTextI18n")
-        fun bind(locationDistanceResponse: LocationDistanceResponse) {
-            currentLocation = locationDistanceResponse
+        fun bind(locationWithDistanceResponse: LocationWithDistanceResponse) {
+            currentLocation = locationWithDistanceResponse
 
             // add data to widget view
             loadImageWithCoil(photoLayout, currentLocation?.photo?.first().toString())
@@ -57,16 +57,16 @@ class HomeAdapter(private val onClick: (LocationDistanceResponse) -> Unit) :
         }
     }
 
-    companion object DiffCallBack : DiffUtil.ItemCallback<LocationDistanceResponse>() {
+    companion object DiffCallBack : DiffUtil.ItemCallback<LocationWithDistanceResponse>() {
         override fun areItemsTheSame(
-            oldItem: LocationDistanceResponse,
-            newItem: LocationDistanceResponse
+            oldItem: LocationWithDistanceResponse,
+            newItem: LocationWithDistanceResponse
         ): Boolean = oldItem == newItem
 
 
         override fun areContentsTheSame(
-            oldItem: LocationDistanceResponse,
-            newItem: LocationDistanceResponse
+            oldItem: LocationWithDistanceResponse,
+            newItem: LocationWithDistanceResponse
         ): Boolean = oldItem.uid == newItem.uid
     }
 }

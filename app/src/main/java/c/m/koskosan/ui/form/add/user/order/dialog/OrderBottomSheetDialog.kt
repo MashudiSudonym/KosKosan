@@ -1,4 +1,4 @@
-package c.m.koskosan.ui.form.order.dialog
+package c.m.koskosan.ui.form.add.user.order.dialog
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import c.m.koskosan.databinding.FragmentBottomSheetOrderConfirmationBinding
-import c.m.koskosan.ui.form.order.OrderViewModel
+import c.m.koskosan.ui.form.add.user.order.OrderViewModel
 import c.m.koskosan.util.ViewUtilities.gone
 import c.m.koskosan.util.ViewUtilities.visible
 import c.m.koskosan.vo.ResponseState
@@ -30,6 +30,7 @@ class OrderBottomSheetDialog : BottomSheetDialogFragment() {
     private var locationName: String? = null
     private var locationAddress: String? = null
     private var locationPhone: String? = null
+    private var locationOwnerUID: String? = null
     private var surveyScheduleDate: String? = null
     private var startRentDate: String? = null
     private var stopRentDate: String? = null
@@ -76,6 +77,11 @@ class OrderBottomSheetDialog : BottomSheetDialogFragment() {
         // get location UID
         orderViewModel.locationUID.observe(viewLifecycleOwner, { result ->
             locationUID = result
+        })
+
+        // get location owner UID
+        orderViewModel.locationOwnerUID.observe(viewLifecycleOwner, { result ->
+            locationOwnerUID = result
         })
 
         // get location name

@@ -1,4 +1,4 @@
-package c.m.koskosan.ui.form.order
+package c.m.koskosan.ui.form.add.user.order
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -26,6 +26,14 @@ class OrderViewModel(
 
     fun setLocationUID(locationUID: String) {
         _mutableLocationUID.value = locationUID
+    }
+
+    // location owner UID
+    private val _mutableLocationOwnerUID = MutableLiveData<String>()
+    val locationOwnerUID: LiveData<String> get() = _mutableLocationOwnerUID
+
+    fun setLocationOwnerUID(locationOwnerUID: String) {
+        _mutableLocationOwnerUID.value = locationOwnerUID
     }
 
     // location name
@@ -110,6 +118,7 @@ class OrderViewModel(
         _orderStatusInput,
         _mutableSurveyScheduleDate.value.toString(),
         _mutableStartRentDate.value.toString(),
-        _mutableStopRentDate.value.toString()
+        _mutableStopRentDate.value.toString(),
+        _mutableLocationOwnerUID.value.toString()
     )
 }

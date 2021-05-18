@@ -14,6 +14,7 @@ data class LocationResponse(
     var photo: List<String>? = null,
     var type: String? = null,
     var googlePlace: String? = null,
+    var ownerUID: String? = null,
 ) {
     @Exclude
     fun toMap(): Map<String, Any?> = mapOf(
@@ -25,5 +26,6 @@ data class LocationResponse(
         "photo" to photo,
         "type" to type,
         "googlePlace" to googlePlace,
+        "ownerUID" to ownerUID,
     )
 }
