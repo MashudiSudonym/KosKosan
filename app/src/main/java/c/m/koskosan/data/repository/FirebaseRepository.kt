@@ -48,7 +48,7 @@ class FirebaseRepository {
 
     // post user profile data to firestore and user profile image to storage
     fun createUserProfileData(
-        uid: String,
+        userUID: String,
         name: String,
         imageProfilePath: Uri?,
         phoneNumber: String,
@@ -56,7 +56,7 @@ class FirebaseRepository {
         email: String,
     ): LiveData<ResponseState<Double>> {
         val progressUploadingData: MutableLiveData<ResponseState<Double>> = MutableLiveData()
-        val imageReference: StorageReference = userProfileStorageReference.child("$uid/profile")
+        val imageReference: StorageReference = userProfileStorageReference.child("$userUID/profile")
         val progressDone = 100.0
 
         if (imageProfilePath != null) {
@@ -64,7 +64,7 @@ class FirebaseRepository {
                 .addOnSuccessListener {
                     it.storage.downloadUrl.addOnSuccessListener { uri ->
                         val mapUserResponseData = UserResponse(
-                            uid,
+                            userUID,
                             name,
                             (uri?.toString() ?: "-"),
                             phoneNumber,
@@ -72,10 +72,17 @@ class FirebaseRepository {
                             email
                         )
 
-                        userProfileCollection.document(uid).set(mapUserResponseData)
+                        userProfileCollection.document(userUID).set(mapUserResponseData)
                             .addOnSuccessListener {
-                                progressUploadingData.value =
-                                    ResponseState.Success(progressDone)
+                                // update user order data
+                                updateUserOrderData(
+                                    userUID,
+                                    address,
+                                    name,
+                                    phoneNumber,
+                                    progressUploadingData,
+                                    progressDone
+                                )
                             }
                             .addOnFailureListener { exception ->
                                 progressUploadingData.value =
@@ -98,11 +105,65 @@ class FirebaseRepository {
         return progressUploadingData
     }
 
+    // update user order data
+
+    private fun updateUserOrderData(
+        userUID: String,
+        address: String,
+        name: String,
+        phoneNumber: String,
+        progressUploadingData: MutableLiveData<ResponseState<Double>>,
+        progressDone: Double
+    ) {
+        orderCollection.whereEqualTo("userUID", userUID).get()
+            .addOnSuccessListener { snapshot ->
+                val orders = snapshot?.toObjects(OrderResponse::class.java)
+
+                if (orders != null) {
+                    orders.forEach { data ->
+                        orderCollection.document(data.uid.toString())
+                            .update(
+                                mapOf(
+                                    "userAddress" to address,
+                                    "userName" to name,
+                                    "userPhone" to phoneNumber
+                                )
+                            ).addOnSuccessListener {
+                                // process upload done
+                                progressUploadingData.value =
+                                    ResponseState.Success(progressDone)
+                            }
+                            .addOnFailureListener { exception ->
+                                Timber.e(exception.localizedMessage)
+
+                                // process upload done
+                                progressUploadingData.value =
+                                    ResponseState.Success(progressDone)
+                            }
+                    }
+                } else {
+                    Timber.e("null")
+
+                    // process upload done
+                    progressUploadingData.value =
+                        ResponseState.Success(progressDone)
+                }
+            }
+            .addOnFailureListener { exception ->
+                Timber.e(exception.localizedMessage)
+
+                // process upload done
+                progressUploadingData.value =
+                    ResponseState.Success(progressDone)
+            }
+    }
+
     // update user profile data
     fun updateUserProfileData(
         userUid: String,
         name: String,
         address: String,
+        phoneNumber: String,
         email: String
     ): LiveData<ResponseState<Double>> {
         val progressUploadingData: MutableLiveData<ResponseState<Double>> = MutableLiveData()
@@ -120,6 +181,15 @@ class FirebaseRepository {
         userProfileCollection.document(userUid)
             .update(mapUserProfileData)
             .addOnSuccessListener {
+                // update user order data
+                updateUserOrderData(
+                    userUid,
+                    address,
+                    name,
+                    phoneNumber,
+                    progressUploadingData,
+                    progressDone
+                )
                 progressUploadingData.value = ResponseState.Success(progressDone)
             }
             .addOnFailureListener { exception ->

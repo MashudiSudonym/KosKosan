@@ -40,8 +40,8 @@ import c.m.koskosan.vo.ResponseState
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import id.rizmaulana.sheenvalidator.lib.SheenValidator
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -258,7 +258,7 @@ class UpdateUserProfileActivity : AppCompatActivity() {
         }
 
         bottomSheetOptionImageBinding.btnCamera.setOnClickListener {
-            GlobalScope.launch(Dispatchers.IO) {
+            CoroutineScope(Dispatchers.IO).launch {
                 showCamera()
             }
 
@@ -266,7 +266,7 @@ class UpdateUserProfileActivity : AppCompatActivity() {
         }
 
         bottomSheetOptionImageBinding.btnGallery.setOnClickListener {
-            GlobalScope.launch(Dispatchers.IO) {
+            CoroutineScope(Dispatchers.IO).launch {
                 showGallery()
             }
 

@@ -46,6 +46,7 @@ class UpdateUserProfileViewModel (
                 userUID.value.toString(),
                 _nameInput,
                 _addressInput,
+                _phoneNumberInput,
                 _emailInput
             )
         } else {
